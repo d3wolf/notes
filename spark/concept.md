@@ -27,6 +27,7 @@
 > 它指的是父RDD的partition数据最多只被子RDD的一个partition所使用
 + 比如 map/filter/flatMap等等
 + 它是不会产生shuffle
+
 ##宽依赖
 >它指的是子RDD多个partition数据会依赖于父RDD的同一partition分区数据
 + 比如 reduceByKey / groupByKey /sortByKey /groupBy 等等
@@ -38,6 +39,7 @@
 #RDD的缓存机制  
 ##rdd的缓存是什么  
 >可以把rdd的数据缓存在内存或者是磁盘中，后续需要用到这份数据，就可以直接从缓存中获取得到，避免了数据的重复计算。
+
 ##如何对rdd设置缓存  
 ```$xslt
 可以调用rdd中的cache和persist2个方法
@@ -47,6 +49,7 @@ cache：   其本质是调用了pesist方法，它是把数据缓存在内存�
 persist：可以把数据保存在内存或者是磁盘中，该方法中可以传入不同的缓存级
 别，这些缓存级别都被定义在这个Object中（StorageLevel）
 ```
+
 ##具体使用cache和persist方法  
 ```$xslt
   1、需要对rdd调用cache和perisist方法
