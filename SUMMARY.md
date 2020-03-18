@@ -3,3 +3,5 @@
 * [Spark](spark/README.md)
   * [概念](spark/concept.md)
   * [基本命令](spark/cmd.md)
+* [数据结构](data_structure/README.md)
+  * [堆](data_structure/heap.md)

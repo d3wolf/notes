@@ -49,3 +49,6 @@ Thumbs.db
 nohup.out
 
 /_book/
+/.vscode/
+
+/.ipynb_checkpoints/
