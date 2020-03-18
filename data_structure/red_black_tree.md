@@ -12,19 +12,19 @@
 
 `5.1：如果一个结点存在黑子结点，那么该结点肯定有两个子结点`
 
-![1](https://upload-images.jianshu.io/upload_images/2392382-4996bbfb4017a3b2.png?imageMogr2/auto-orient/strip|imageView2/2/w/526)
+![1](../images/rbt-1.png)
 
 >红黑树并不是一个完美平衡二叉查找树，从图可以看到，根结点P的左子树显然比右子树高，但左子树和右子树的黑结点的层数是相等的，也即任意一个结点到到每个叶子结点的路径都包含数量相同的黑结点(性质5)。所以我们叫红黑树这种平衡为黑色完美平衡。
 
 
-![2](https://upload-images.jianshu.io/upload_images/2392382-abedf3ecc733ccd5.png)
+![2](../images/rbt-2.png)
 
 ##红黑树操作
 >红黑树能自平衡，它靠的是什么？三种操作：左旋、右旋和变色
 * 左旋：以某个结点作为支点(旋转结点)，其右子结点变为旋转结点的父结点，右子结点的左子结点变为旋转结点的右子结点，左子结点保持不变。如图。
-![3](https://upload-images.jianshu.io/upload_images/2392382-a95db442f1b47f8a.png)
+![3](../images/rbt-3.png)
 * 右旋：以某个结点作为支点(旋转结点)，其左子结点变为旋转结点的父结点，左子结点的右子结点变为旋转结点的左子结点，右子结点保持不变。如图。
-![4](https://upload-images.jianshu.io/upload_images/2392382-0676a8e2a12e2a0b.png)
+![4](../images/rbt-4.pn)
 * 变色：结点的颜色由红变黑或由黑变红。
 
 >我们先忽略颜色，可以看到旋转操作不会影响旋转结点的父结点，父结点以上的结构还是保持不变的。
@@ -42,7 +42,7 @@
 5. 若当前结点key大于查找key，把当前结点的左子结点设置为当前结点，重复步骤2；
 6. 若当前结点key小于查找key，把当前结点的右子结点设置为当前结点，重复步骤2；
 
-![5](https://upload-images.jianshu.io/upload_images/2392382-07b47eb3722981e6.png)
+![5](../images/rbt-5.png)
 
 ##红黑树插入
 
@@ -56,10 +56,10 @@
 6. 若当前结点key大于查找key，把当前结点的左子结点设置为当前结点，重复步骤4；
 7. 若当前结点key小于查找key，把当前结点的右子结点设置为当前结点，重复步骤4；
 
-![6](https://upload-images.jianshu.io/upload_images/2392382-7521866b50683a24.png)
+![6](../images/rbt-6.png)
 
 >插入位置已经找到，把插入结点放到正确的位置就可以啦，但插入结点是应该是什么颜色呢？答案是红色。理由很简单，红色在父结点（如果存在）为黑色结点时，红黑树的黑色平衡没被破坏，不需要做自平衡操作。但如果插入结点是黑色，那么插入位置所在的子树黑色结点总是多1，必须做自平衡
  
-![7](https://upload-images.jianshu.io/upload_images/2392382-fa2b78271263d2c8.png?imageMogr2/auto-orient/strip|imageView2/2/w/1033)
+![7](../images/rbt-7.png)
 
 [30张图带你彻底理解红黑树](https://www.jianshu.com/p/e136ec79235c)
