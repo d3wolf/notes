@@ -12,7 +12,7 @@
 
 `5.1：如果一个结点存在黑子结点，那么该结点肯定有两个子结点`
 
-![1](https://upload-images.jianshu.io/upload_images/2392382-4996bbfb4017a3b2.png)
+![1](https://upload-images.jianshu.io/upload_images/2392382-4996bbfb4017a3b2.png?imageMogr2/auto-orient/strip|imageView2/2/w/526)
 
 >红黑树并不是一个完美平衡二叉查找树，从图可以看到，根结点P的左子树显然比右子树高，但左子树和右子树的黑结点的层数是相等的，也即任意一个结点到到每个叶子结点的路径都包含数量相同的黑结点(性质5)。所以我们叫红黑树这种平衡为黑色完美平衡。
 
