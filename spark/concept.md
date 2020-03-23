@@ -5,6 +5,22 @@
   * Distributed 它的数据是进行了分布式存储，为了方便于后期进行分布式计算
   * Resilient 弹性，rdd的数据可以保存在内存中或者是磁盘中
  
+#RDD的弹性表现在哪几点？
+ 
+1. 自动的进行内存和磁盘的存储切换；
+ 
+2. 基于Lineage的高效容错；
+ 
+3. task如果失败会自动进行特定次数的重试；
+ 
+4. stage如果失败会自动进行特定次数的重试，而且只会计算失败的分片；
+ 
+5. checkpoint和persist，数据计算之后持久化缓存；
+ 
+6. 数据调度弹性，DAG TASK调度和资源无关；
+ 
+7. 数据分片的高度弹性。
+
 #RDD的五大特性
 * A list of partitions
 >一个RDD有很多个分区，一组分区列表.后期spark的任务是以rdd的分区为单位，一个分区对应一个task线程，spark任务最后是以task线程的方式运行在worker节点上的executor进程中
@@ -74,3 +90,30 @@ persist：可以把数据保存在内存或者是磁盘中，该方法中可以�
   * 它是按照程序中的rdd之间的依赖关系，生成了一张有方向无闭环的图
 * 后期会对DAG有向无环图划分成不同的stage（调度阶段）
   * 宽依赖是划分stage的依据
+
+
+#spark工作机制
+![1](../images/spark-1.jpg)
+
+1. 构建Application的运行环境，Driver创建一个SparkContext
+
+2. SparkContext向资源管理器（Standalone、Mesos、Yarn）申请Executor资源，资源管理器启动StandaloneExecutorbackend（Executor）
+
+3. Executor向SparkContext申请Task
+
+4. SparkContext将应用程序分发给Executor
+
+5. SparkContext就建成DAG图，DAGScheduler将DAG图解析成Stage，每个Stage有多个task，形成taskset发送给task Scheduler，由task Scheduler将Task发送给Executor运行
+
+6. Task在Executor上运行，运行完释放所有资源
+
+#spark的优化怎么做
+
+ spark调优比较复杂，但是大体可以分为三个方面来进行
+
+1. 平台层面的调优：防止不必要的jar包分发，提高数据的本地性，选择高效的存储格式如parquet
+
+2. 应用程序层面的调优：过滤操作符的优化降低过多小任务，降低单条记录的资源开销，处理数据倾斜，复用RDD进行缓存，作业并行化执行等等
+
+3. JVM层面的调优：设置合适的资源量，设置合理的JVM，启用高效的序列化方法如kyro，增大off head内存等等
+
