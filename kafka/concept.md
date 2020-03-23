@@ -1,10 +1,10 @@
-#kafka
+#Kafka
 
-##为什么要使用 kafka，为什么要使用消息队列
+##为什么要使用 Kafka，为什么要使用消息队列
 
 * 缓冲和削峰
 
->上游数据时有突发流量，下游可能扛不住，或者下游没有足够多的机器来保证冗余，kafka在中间可以起到一个缓冲的作用，把消息暂存在kafka中，下游服务就可以按照自己的节奏进行慢慢处理。
+>上游数据时有突发流量，下游可能扛不住，或者下游没有足够多的机器来保证冗余，Kafka在中间可以起到一个缓冲的作用，把消息暂存在Kafka中，下游服务就可以按照自己的节奏进行慢慢处理。
 
 * 解耦和扩展性
 
@@ -22,7 +22,7 @@
 
 >很多时候，用户不想也不需要立即处理消息。消息队列提供了异步处理机制，允许用户把一个消息放入队列，但并不立即处理它。想向队列中放入多少消息就放多少，然后在需要的时候再去处理它们。
 
-## kafka 为什么那么快
+## Kafka 为什么那么快
 
 * Cache Filesystem Cache PageCache缓存
 
@@ -34,7 +34,7 @@
 
 * Pull 拉模式 使用拉模式进行消息的获取消费，与消费端处理能力相符。
 
-##kafka的message格式是什么样的
+##Kafka的message格式是什么样的
 
 一个Kafka的Message由一个固定长度的header和一个变长的消息体body组成
 
@@ -96,7 +96,7 @@ Kafka消息消费有两个consumer接口，Low-level API和High-level API：
 * 基于数据库的唯一键来保证重复数据不会重复插入多条，重复数据拿到了以后我们插入的时候，因为有唯一键约束了，所以重复数据只会插入报错，不会导致数据库中出现脏数据
 
 
-##kafka producer 打数据，ack  为 0， 1， -1 的时候代表啥， 设置 -1 的时候，什么情况下，leader 会认为一条消息 commit了
+##Kafka producer 打数据，ack  为 0， 1， -1 的时候代表啥， 设置 -1 的时候，什么情况下，leader 会认为一条消息 commit了
 
 * 1（默认）  数据发送到Kafka后，经过leader成功接收消息的的确认，就算是发送成功了。在这种情况下，如果leader宕机了，则会丢失数据。
 
@@ -114,7 +114,7 @@ Kafka消息消费有两个consumer接口，Low-level API和High-level API：
 
 ##如果leader crash时，ISR为空怎么办
 
-kafka在Broker端提供了一个配置参数：unclean.leader.election,这个参数有两个值：
+Kafka在Broker端提供了一个配置参数：unclean.leader.election,这个参数有两个值：
 * true（默认）
 
 >允许不同步副本成为leader，由于不同步副本的消息较为滞后，此时成为leader，可能会出现消息不一致的情况。
@@ -124,15 +124,15 @@ kafka在Broker端提供了一个配置参数：unclean.leader.election,这个参
 >不允许不同步副本成为leader，此时如果发生ISR列表为空，会一直等待旧leader恢复，降低了可用性。
 
 
-##kafka中的broker 是干什么的
+##Kafka中的broker 是干什么的
 
 broker 是消息的代理，Producers往Brokers里面的指定Topic中写消息，Consumers从Brokers里面拉取指定Topic的消息，然后进行业务处理，broker在中间起到一个代理保存消息的中转站。
 
-##kafka中的 zookeeper 起到什么作用，可以不用zookeeper么
+##Kafka中的 zookeeper 起到什么作用，可以不用zookeeper么
 
-zookeeper 是一个分布式的协调组件，早期版本的kafka用zk做meta信息存储，consumer的消费状态，group的管理以及 offset的值。考虑到zk本身的一些因素以及整个架构较大概率存在单点问题，新版本中逐渐弱化了zookeeper的作用。新的consumer使用了kafka内部的group coordination协议，也减少了对zookeeper的依赖，
+zookeeper 是一个分布式的协调组件，早期版本的Kafka用zk做meta信息存储，consumer的消费状态，group的管理以及 offset的值。考虑到zk本身的一些因素以及整个架构较大概率存在单点问题，新版本中逐渐弱化了zookeeper的作用。新的consumer使用了Kafka内部的group coordination协议，也减少了对zookeeper的依赖，
 
-但是broker依然依赖于ZK，zookeeper 在kafka中还用来选举controller 和 检测broker是否存活等等
+但是broker依然依赖于ZK，zookeeper 在Kafka中还用来选举controller 和 检测broker是否存活等等
 
 
 ##为什么Kafka不支持读写分离
@@ -151,7 +151,7 @@ Kafka 并不支持主写从读，因为主写从读有 2 个很明 显的缺点:
 
 ##Kafka中是怎么体现消息顺序性的
 
-kafka每个partition中的消息在写入时都是有序的，消费时，每个partition只能被每一个group中的一个消费者消费，保证了消费时也是有序的。
+Kafka每个partition中的消息在写入时都是有序的，消费时，每个partition只能被每一个group中的一个消费者消费，保证了消费时也是有序的。
 
 整个topic不保证有序。如果为了保证topic整个有序，那么将partition调整为1
 
