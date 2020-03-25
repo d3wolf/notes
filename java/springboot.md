@@ -4,23 +4,39 @@
 
 Spring Boot 是解决这个问题的方法。Spring Boot 已经建立在现有 spring 框架之上。使用 spring 启动，我们避免了之前我们必须做的所有样板代码和配置。因此，Spring Boot 可以帮助我们以最少的工作量，更加健壮地使用现有的 Spring功能。
 
-#Spring Boot 有哪些优点？
-1. 减少开发，测试时间和努力。
+#SpringBoot核心功能
+ 
+* 独立运行Spring项目
 
-2. 使用 JavaConfig 有助于避免使用 XML。
+>Spring boot 可以以jar包形式独立运行，运行一个Spring Boot项目只需要通过java -jar xx.jar来运行。
 
-3. 避免大量的 Maven 导入和各种版本冲突。
+* 内嵌servlet容器
 
-4. 提供意见发展方法。
+>Spring Boot可以选择内嵌Tomcat、jetty或者Undertow,这样我们无须以war包形式部署项目。
 
-5. 通过提供默认值快速开始开发。
+* 提供starter简化Maven配置
 
-6. 没有单独的 Web 服务器需要。这意味着你不再需要启动 Tomcat，Glassfish或其他任何东西。
+>Spring提供了一系列的start pom来简化Maven的依赖加载，例如，当你使用了spring-boot-starter-web，会自动加入如图5-1所示的依赖包。
 
-7. 需要更少的配置 因为没有 web.xml 文件。
 
->只需添加用@ Configuration 注释的类，然后添加用@Bean 注释的方法，Spring 将自动加载对象并像以前一样对其进行管理。您甚至可以将@Autowired 添加到 bean 方法中，以使 Spring 自动装入需要的依赖关系中。
+* 自动装配Spring 
 
-8. 基于环境的配置
+>SpringBoot会根据在类路径中的jar包，类、为jar包里面的类自动配置Bean，这样会极大地减少我们要使用的配置。当然，SpringBoot只考虑大多数的开发场景，并不是所有的场景，若在实际开发中我们需要配置Bean，而SpringBoot灭有提供支持，则可以自定义自动配置。
 
->使用这些属性，您可以将您正在使用的环境传递到应用程序：-Dspring.profiles.active = {enviornment}。在加载主应用程序属性文件后，Spring 将在（application{environment} .properties）中加载后续的应用程序属性文件。
+* 准生产的应用监控
+ 
+>SpringBoot提供基于http ssh telnet对运行时的项目进行监控。
+
+* 无代码生产和xml配置　　
+
+>SpringBoot不是借助与代码生成来实现的，而是通过条件注解来实现的，这是Spring4.x提供的新特性。
+
+
+#SpringBoot优点
+1. 快速构建项目。
+2. 对主流开发框架的无配置集成。
+3. 项目可独立运行，无须外部依赖Servlet容器。
+4. 提供运行时的应用监控。
+5. 极大的提高了开发、部署效率。
+6. 与云计算的天然集成。
+
