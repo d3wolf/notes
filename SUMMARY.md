@@ -11,6 +11,7 @@
   * [TCP](network/tcp.md)
   * [Netty](network/netty.md)
 * [Java]()
+  * [Object o = new Object()](java/newObject.md)
   * [GC](java/gc.md)
   * [SpringBoot](java/springboot.md)
 * [产品]()
