@@ -78,4 +78,4 @@ TLAB: thread local allocation buffer
 ##Object o = new Object()在内存中占用多少字节
 指针在32位jdk中占用4字节，64位jdk是8字节，如果UseCompressedOops被打开了，则一个指针仍然是4个字节
 
-根据对象在内存中的存储布局,一个对象由对象头，对象实际数据，以及对齐填充（可能存在）三部分组成
+根据对象在内存中的存储布局,一个对象由对象头(markword, class pointer)，对象实例数据，以及对齐填充（可能存在）三部分组成
