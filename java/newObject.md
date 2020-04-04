@@ -21,6 +21,8 @@ markword klasspointer synchronized锁信息 hashcode 分代年龄
 
 ![4](../images/object-4.png)
 
+>轻量级锁和重量级锁时中间62位没有了，他们被保存在线程栈的Lock Record中了
+
 ```$xslt
 |-------------------------------------------------------|--------------------|
 |                  Mark Word (32 bits)                  |       State        |

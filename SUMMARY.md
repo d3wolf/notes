@@ -12,7 +12,11 @@
   * [Netty](network/netty.md)
 * [Java]()
   * [Object o = new Object()](java/newObject.md)
+  * [锁](java/lock.md)
+  * [AQS](java/aqs.md)
   * [GC](java/gc.md)
   * [SpringBoot](java/springboot.md)
+*[课程笔记]
+ * [多线程](course/多线程/多线程.md)
 * [产品]()
   * [创建成功产品的良好实践](product/1.md)
