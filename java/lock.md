@@ -9,6 +9,13 @@
 
 0x80中断
 
+##锁与异常
+
+如果出现异常，默认情况锁会被释放
+
+> 比如web app中，多个servlet线程共同访问一个资源，如果异常处理不合适，在第一个线程
+抛出了异常，其他线程会进入同步代码区，可能访问到异常产生的数据
+
 ##请描述synchronized和reentrantlock的底层实现及重入的底层原理
 
 
@@ -55,6 +62,8 @@
 
 ##volatile VS synchronized
 
+volatile 汇编锁的是一个空指令（lock addl 0到寄存器），synchronized锁的是一个cas(lock cmpexchange)
+
 * volatile本质是在告诉jvm当前变量在寄存器（工作内存）中的值是不确定的，需要从主存中读取； synchronized则是锁定当前变量，只有当前线程可以访问该变量，其他线程被阻塞住。
 * volatile仅能使用在变量级别；synchronized则可以使用在变量、方法、和类级别的
 * volatile仅能实现变量的修改可见性，不能保证原子性；而synchronized则可以保证变量的修改可见性和原子性
@@ -76,3 +85,28 @@ ReetrantLock,ReentrantReadWriteLock等很多锁都是基于AQS实现的。
 
 ![aqs](../images/aqs-1.png)
 
+##两个线程交替输出
+
+* wait notify
+
+两个线程锁定同一个对象，然后调用其wait和notify方法
+
+线程先后关系，让另一个线程首先wait.不能使用sleep，因为sleep时间未够，notify不醒(sleep不释放锁)
+
+
+* LockSupport
+
+```$xslt
+t1 t2两个线程
+LockSupport.unpart(t2); //唤醒t2
+LockSupport.part(); //t1阻塞
+
+```
+
+* ReentrantLock
+
+Condition 是队列，有多少个condition，就有多少队列
+synchronized只有一个队列
+
+
+* TransferQueue 阻塞的容量为0的队列
