@@ -245,3 +245,11 @@ Netty中的编码/解码器，通过他你能完成字节与pojo、pojo与pojo�
 
 >在Netty里面最有名的就是HttpRequestDecoder和HttpResponseEncoder了。
 
+
+
+## Netty && Reactor模型
+
+![netty&reactor](../images/netty&&reactor.jpg)
+
+
+## Reactor和epoll模型的区别

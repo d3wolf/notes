@@ -9,6 +9,10 @@
 
 0x80中断
 
+## 为什么不能用String, Integer, Long等对象加锁
+
+为啥锁对象最好使final的，但是又不让string做锁
+
 ##锁与异常
 
 如果出现异常，默认情况锁会被释放
@@ -21,11 +25,17 @@
 
 ##请描述锁的四种状态和升级过程
 ![1](../images/lock-1.png)
-* 偏向锁 偏向第一个线程
+* 偏向锁 偏向第一个线程 对象头记录了线程id
 
-* 轻量锁 自旋锁 CAS
+* 轻量锁 自旋锁 CAS ： 线程用清凉锁
 
-* 重量锁
+* 重量锁： 线程多用重量锁，操作时间长用重量锁
+
+## 锁细化和粗化
+
+细化：只加到必要的方法上
+
+粗化：各个小方法全是锁，不如直接放到一个方法
 
 ##CAS的ABA问题如何解决
 
@@ -93,6 +103,59 @@ ReetrantLock,ReentrantReadWriteLock等很多锁都是基于AQS实现的。
 
 线程先后关系，让另一个线程首先wait.不能使用sleep，因为sleep时间未够，notify不醒(sleep不释放锁)
 
+```$xslt
+	static boolean t2Run = false;
+
+	public static void waitNotifyTest(){
+		char[] s1 = "12345".toCharArray();
+		char[] s2 = "ABCDE".toCharArray();
+
+		Object o = new Object();
+
+		Thread t1 = new Thread(() -> {
+
+			synchronized (o){
+				for (char c : s1) {
+					System.out.println(c);
+					t2Run = true;
+					o.notify();
+					try {
+						o.wait();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				o.notify();
+			}
+
+		});
+
+		Thread t2 = new Thread(() -> {
+			synchronized (o){
+				if(!t2Run){
+					try {
+						o.wait(); //让第二个线程先等着，确保第一个线程先执行
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				for (char c : s2) {
+					System.out.println(c);
+					o.notify();
+					try {
+						o.wait();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				o.notify();
+			}
+		});
+
+		t1.start();
+		t2.start();
+	}
+```
 
 * LockSupport
 
@@ -107,6 +170,58 @@ LockSupport.part(); //t1阻塞
 
 Condition 是队列，有多少个condition，就有多少队列
 synchronized只有一个队列
+
+```$java
+	static boolean t2Run = false;
+
+	public static void reentrantLockTest() throws InterruptedException {
+		char[] s1 = "12345".toCharArray();
+		char[] s2 = "ABCDE".toCharArray();
+
+		ReentrantLock lock = new ReentrantLock();
+		Condition c1 = lock.newCondition();
+		Condition c2 = lock.newCondition();
+
+		Thread t1 = new Thread(() -> {
+			try{
+				lock.lock();
+				for (char c : s1) {
+					System.out.println(c); //让这个线程一定能执行
+					t2Run = true;
+					c2.signal();
+					c1.await();
+				}
+				c2.signal();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} finally {
+				lock.unlock();
+			}
+		});
+
+		Thread t2 = new Thread(() -> {
+			try{
+				lock.lock();
+				if(!t2Run){
+					c2.await();//让t2等待t1先执行
+				}
+				for (char c : s2) {
+					System.out.println(c);
+					c1.signal();
+					c2.await();//让t2等待t1先执行
+				}
+				c1.signal();
+			}catch (InterruptedException e){
+				e.printStackTrace();
+			}finally {
+				lock.unlock();
+			}
+		});
+
+		t1.start();
+		t2.start();
+	}
+```
 
 
 * TransferQueue 阻塞的容量为0的队列
