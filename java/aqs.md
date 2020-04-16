@@ -1,4 +1,4 @@
-##请谈一下AQS,为什么AQS的底层是CAS+volatile
+## 请谈一下AQS,为什么AQS的底层是CAS+volatile
 
 > CAS+volatile的使用既保证了这个变量的可见性，又能在存在竞争的时候线程安全地获取资源，虽然volatile修改存在并发安全问题，但是用CAS可以避免这个问题。
 
@@ -12,9 +12,10 @@ ReetrantLock,ReentrantReadWriteLock等很多锁都是基于AQS实现的。
 
 ![aqs](../images/aqs-1.png)
 
-##AQS源码分析
+## AQS源码分析
 
-###数据结构
+### 数据结构
+
 ```$xslt
         static final Node SHARED = new Node();//共享模式的标记
         static final Node EXCLUSIVE = null;//独占模式的标志
@@ -60,7 +61,7 @@ ReetrantLock,ReentrantReadWriteLock等很多锁都是基于AQS实现的。
 
 ```
 * waitStatus表示当前被封装成Node结点的等待状态，共有4种取值CANCELLED、SIGNAL、CONDITION、PROPAGATE。
-    
+  
     1. CANCELLED
     
     >值为1，在同步队列中等待的线程等待超时或被中断，需要从同步队列中取消该Node的结点，其结点的waitStatus为CANCELLED，即结束状态，进入该状态后的结点将不会再变化。

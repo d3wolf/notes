@@ -1,7 +1,7 @@
-#roadmap
+# roadmap
 
-##6+2  (6大知识点＋两个项目)  
- 
+## 6+2  (6大知识点＋两个项目)  
+
 * 6大知识点：
 ```$xslt
 多线程高并发  
@@ -18,7 +18,7 @@ mysql调优
 亿级流量
 ```
 
-##初级
+## 初级
 
 java基础，线程概念，锁处理的问题是什么，此问题是怎么产生的．
 
@@ -40,8 +40,7 @@ jackson基本使用，注解使用，视图使用，jackson与spring mvc 结合�
 
 简单了解spring boot自动配置原理，以及其提供的便利工具，重点结合之前学到的spring ，spring mvc进行综合理解．
 
-
-##进阶
+## 进阶
 
 掌握grpc，docker, k8s 等相关技术的使用
 
@@ -61,7 +60,7 @@ jackson基本使用，注解使用，视图使用，jackson与spring mvc 结合�
 
 
 
-##前端
+## 前端
 
 html,javascript,css 三剑客基础知识．
 

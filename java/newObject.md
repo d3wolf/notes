@@ -1,22 +1,22 @@
 # 关于Object o = new Object()
 
-##请解释一下对象的创建过程
+## 请解释一下对象的创建过程
 
 1. 申请内存空间（半初始化）
 2. 成员变量设为初始值
 3. o指向对象
 
-##DCL与volatile问题
+## DCL与volatile问题
 
 ![2](../images/object-2.png)
 
-##对象在内存中的存储布局
+## 对象在内存中的存储布局
 
 ![3](../images/object-3.png)
 
 ![301](../images/object-301.png)
 
-##对象头具体包括什么
+## 对象头具体包括什么
 markword klasspointer synchronized锁信息 hashcode 分代年龄
 
 ![4](../images/object-4.png)
@@ -55,7 +55,7 @@ markword klasspointer synchronized锁信息 hashcode 分代年龄
 
 ```
 
-##对象怎么定位
+## 对象怎么定位
 
 * 句柄访问
 
@@ -65,19 +65,19 @@ markword klasspointer synchronized锁信息 hashcode 分代年龄
 * 直接访问
 
 > o直接指向对象，然后对象再去指向Object.class，这两种无优劣之分。
-  
+
 HotSpot采用第二种直接指针的方式，效率高些，但在GC时，第一种效率更高。
 
-##对象怎么分配
+## 对象怎么分配
 栈上-线程本地-Eden-Old
 
 TLAB: thread local allocation buffer
 
 ![6](../images/object-6.png)
 
-对象在新生代最多存活多少次：15(因为对象头只有4bit存年龄信息)，CMS回收器：6
+对象在新生代最多存活多少次：PS,PO-15(因为对象头只有4bit存年龄信息)，CMS回收器：6
 
-##Object o = new Object()在内存中占用多少字节
+## Object o = new Object()在内存中占用多少字节
 指针在32位jdk中占用4字节，64位jdk是8字节，如果UseCompressedOops被打开了，则一个指针仍然是4个字节
 
 根据对象在内存中的存储布局,一个对象由对象头(markword, class pointer)，对象实例数据，以及对齐填充（可能存在）三部分组成
