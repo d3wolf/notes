@@ -53,7 +53,52 @@ LockSupport.part(); //t1阻塞
 ```
 
 
+## AQS源码 
+
+* jdk9 - java.lang.invoke.VarHandle 
+
+比反射快直接操作二进制码
+
+普通属性也能变成原子操作
+
+## ThreadLocal
+
+* 用途
+
+```
+声明式事务，保证是同一个connection
+```
+
+
+使用完需要remove，否则仍然会内存泄露
+
+## 四种引用
+
+* SoftReference 空间不够才会被回收，做缓存
+
+* WeakReference  ThreadLocal
+
+![weakReference](../images/weakReference.jpg)
+
+* 虚引用 PhantomReference
+
+管理堆外内存
+
+遭遇gc就被回收
+
+![phantomReference](../images/phantomReference.jpg)
+
 ## 同步容器
+
+![container](../images/container.jpg)
+
+* DelayQueue
+
+* SynchronousQueue  容量为0
+
+* TransferQueue 
+
+
 
 ## 线程池
 
@@ -72,7 +117,7 @@ LockSupport.part(); //t1阻塞
 
 ## 面试题2
 
-写一个股东容量同步容器，拥有put和get方法，以及getCount方法，
+写一个固定容量同步容器，拥有put和get方法，以及getCount方法，
 能够支持2个生产者线程以及10个消费者线程的阻塞调用
 
 
