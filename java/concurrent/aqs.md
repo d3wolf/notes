@@ -10,7 +10,7 @@ AQS是一个抽象类的同步器，使用了模板方法的设计模式，也�
 
 ReetrantLock,ReentrantReadWriteLock等很多锁都是基于AQS实现的。
 
-![aqs](../images/aqs-1.png)
+![aqs](../../images/aqs-1.png)
 
 ## AQS源码分析
 
@@ -102,4 +102,4 @@ ReetrantLock,ReentrantReadWriteLock等很多锁都是基于AQS实现的。
 ```
 AQS维护着一个队列，维护着共享资源的访问如下
 
-![aqs2](../images/aqs-2.png)
+![aqs2](../../images/aqs-2.png)

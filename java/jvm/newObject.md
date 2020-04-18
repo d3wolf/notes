@@ -8,18 +8,18 @@
 
 ## DCL与volatile问题
 
-![2](../images/object-2.png)
+![2](../../images/object-2.png)
 
 ## 对象在内存中的存储布局
 
-![3](../images/object-3.png)
+![3](../../images/object-3.png)
 
-![301](../images/object-301.png)
+![301](../../images/object-301.png)
 
 ## 对象头具体包括什么
 markword klasspointer synchronized锁信息 hashcode 分代年龄
 
-![4](../images/object-4.png)
+![4](../../images/object-4.png)
 
 >轻量级锁和重量级锁时中间62位没有了，他们被保存在线程栈的Lock Record中了
 
@@ -73,7 +73,7 @@ HotSpot采用第二种直接指针的方式，效率高些，但在GC时，第�
 
 TLAB: thread local allocation buffer
 
-![6](../images/object-6.png)
+![6](../../images/object-6.png)
 
 对象在新生代最多存活多少次：PS,PO-15(因为对象头只有4bit存年龄信息)，CMS回收器：6
 

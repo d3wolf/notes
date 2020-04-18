@@ -78,7 +78,7 @@ LockSupport.part(); //t1阻塞
 
 * WeakReference  ThreadLocal
 
-![weakReference](../images/weakReference.jpg)
+![weakReference](../../images/weakReference.jpg)
 
 * 虚引用 PhantomReference
 
@@ -86,11 +86,11 @@ LockSupport.part(); //t1阻塞
 
 遭遇gc就被回收
 
-![phantomReference](../images/phantomReference.jpg)
+![phantomReference](../../images/phantomReference.jpg)
 
 ## 同步容器
 
-![container](../images/container.jpg)
+![container](../../images/container.jpg)
 
 * DelayQueue
 
