@@ -65,7 +65,7 @@
    3. MajorGC = FGC
    
 6. 对象分配过程图
-   ![](对象分配过程详解.png)
+   ![](../../images/对象分配过程详解.png)
 
 7. 动态年龄：（不重要）
    https://www.jianshu.com/p/989d3b06a49d
@@ -76,7 +76,7 @@
 
 #### 5.常见的垃圾回收器
 
-![常用垃圾回收器](常用垃圾回收器.png)
+![常用垃圾回收器](../../images/常用垃圾回收器.png)
 
 1. JDK诞生 Serial追随 提高效率，诞生了PS，为了配合CMS，诞生了PN，CMS是1.4版本后期引入，CMS是里程碑式的GC，它开启了并发回收的过程，但是CMS毛病较多，因此目前任何一个JDK版本默认是CMS
    并发垃圾回收是因为无法忍受STW
@@ -184,7 +184,7 @@
 
 PS日志格式
 
-![GC日志详解](./GC日志详解.png)
+![GC日志详解](../../images/GC日志详解.png)
 
 heap dump部分：
 
@@ -193,7 +193,7 @@ eden space 5632K, 94% used [0x00000000ff980000,0x00000000ffeb3e28,0x00000000fff0
                             后面的内存地址指的是，起始地址，使用空间结束地址，整体空间结束地址
 ```
 
-![GCHeapDump](GCHeapDump.png)
+![GCHeapDump](../../images/GCHeapDump.png)
 
 total = eden + 1个survivor
 

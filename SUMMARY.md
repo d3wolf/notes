@@ -27,6 +27,7 @@
     * [6-GC和调优](java/jvm/05_GCAndTuning.md)
     * [Object o = new Object()面试题](java/jvm/newObject.md)
     * [GC](java/jvm/gc.md)
+    * [监控工具使用](java/jvm/jstack.md)
   * [SpringBoot](java/springboot.md)
 * [DevOps]()
   * [Gitlab-runner安装](DevOps/gitlab-runner.md)
