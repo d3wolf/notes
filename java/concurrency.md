@@ -102,7 +102,15 @@ LockSupport.part(); //t1阻塞
 
 ## 线程池
 
+* ThreadPoolExecutor
+
+* ForkJoinPool
+
+java8 parallelStream使用的这个
+
 ## 高频面试加分项
+
+线程顺序执行控制
 
 ## Disruptor (单机环境上效率最高的MQ)
 

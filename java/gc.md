@@ -159,4 +159,10 @@ G1与CMS相比的优势
 * 可预测的停顿(基于Region)
 
 
-## dump JVirtualVM 和 MAT使用
+# ZGC颜色指针
+
+![zgc_cp](../images/zgc_color_pointers.jpg)
+
+2^42=4T
+
+最大 2^44=16T 因为目前数据总线最宽是48位

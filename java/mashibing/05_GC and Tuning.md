@@ -78,36 +78,30 @@
 
 ![常用垃圾回收器](常用垃圾回收器.png)
 
-1. 垃圾回收器的发展路线，是随着内存越来越大的过程而演进							
-   从分代算法演化到不分代算法
-   Serial算法 几十兆
-   Parallel算法 几个G
-   CMS 几十个G  - 承上启下，开始并发回收 -
-   .- 三色标记 - 
-2. JDK诞生 Serial追随 提高效率，诞生了PS，为了配合CMS，诞生了PN，CMS是1.4版本后期引入，CMS是里程碑式的GC，它开启了并发回收的过程，但是CMS毛病较多，因此目前任何一个JDK版本默认是CMS
+1. JDK诞生 Serial追随 提高效率，诞生了PS，为了配合CMS，诞生了PN，CMS是1.4版本后期引入，CMS是里程碑式的GC，它开启了并发回收的过程，但是CMS毛病较多，因此目前任何一个JDK版本默认是CMS
    并发垃圾回收是因为无法忍受STW
-3. Serial 年轻代 串行回收
-4. PS 年轻代 并行回收
-5. ParNew 年轻代 配合CMS的并行回收
-6. SerialOld 
-7. ParallelOld
-8. ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms)
+2. Serial 年轻代 串行回收
+3. PS 年轻代 并行回收
+4. ParNew 年轻代 配合CMS的并行回收
+5. SerialOld 
+6. ParallelOld
+7. ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms)
    CMS问题比较多，所以现在没有一个版本默认是CMS，只能手工指定
    CMS既然是MarkSweep，就一定会有碎片化的问题，碎片到达一定程度，CMS的老年代分配对象分配不下的时候，使用SerialOld 进行老年代回收
    想象一下：
    PS + PO -> 加内存 换垃圾回收器 -> PN + CMS + SerialOld（几个小时 - 几天的STW）
    几十个G的内存，单线程回收 -> G1 + FGC 几十个G -> 上T内存的服务器 ZGC
    算法：三色标记 + Incremental Update
-9. G1(200ms - 10ms)
+8. G1(10ms)
    算法：三色标记 + SATB
-10. ZGC (10ms - 1ms) PK C++
+9. ZGC (1ms) PK C++
    算法：ColoredPointers + LoadBarrier
-11. Shenandoah
+10. Shenandoah
     算法：ColoredPointers + WriteBarrier
-12. Eplison
-13. PS 和 PN区别的延伸阅读：
+11. Eplison
+12. PS 和 PN区别的延伸阅读：
     ▪[https://docs.oracle.com/en/java/javase/13/gctuning/ergonomics.html#GUID-3D0BB91E-9BFF-4EBB-B523-14493A860E73](https://docs.oracle.com/en/java/javase/13/gctuning/ergonomics.html)
-14. 垃圾收集器跟内存大小的关系
+13. 垃圾收集器跟内存大小的关系
     1. Serial 几十兆
     2. PS 上百兆 - 几个G
     3. CMS - 20G
@@ -154,12 +148,8 @@
 
   
 
-  java -XX:+PrintFlagsWithComments //只有debug版本能用
-
-  
-  
   试验用程序：
-  
+
   ```java
   import java.util.List;
   import java.util.LinkedList;
@@ -171,13 +161,13 @@
       for(;;) {
         byte[] b = new byte[1024*1024];
         list.add(b);
+      }
     }
-    }
-}
+  }
   ```
+
   
-  
-  
+
   1. 区分概念：内存泄漏memory leak，内存溢出out of memory
   2. java -XX:+PrintCommandLineFlags HelloGC
   3. java -Xmn10M -Xms40M -Xmx60M -XX:+PrintCommandLineFlags -XX:+PrintGC  HelloGC
@@ -187,8 +177,6 @@
   6. java -XX:+PrintFlagsFinal 最终参数值
   7. java -XX:+PrintFlagsFinal | grep xxx 找到对应的参数
   8. java -XX:+PrintFlagsFinal -version |grep GC
-  9. java -XX:+PrintFlagsFinal -version | wc -l 
-     共728个参数
 
 ### PS GC日志详解
 
@@ -411,11 +399,9 @@ total = eden + 1个survivor
 11. jmap -dump:format=b,file=xxx pid ：
 
     线上系统，内存特别大，jmap执行期间会对进程产生很大影响，甚至卡顿（电商不适合）
-    1：设定了参数HeapDump，OOM的时候会自动产生堆转储文件（不是很专业，因为多有监控，内存增长就会报警）
+    1：设定了参数HeapDump，OOM的时候会自动产生堆转储文件
     2：<font color='red'>很多服务器备份（高可用），停掉这台服务器对其他服务器不影响</font>
     3：在线定位(一般小点儿公司用不到)
-
-    4：在测试环境中压测（产生类似内存增长问题，在堆还不是很大的时候进行转储）
 
 12. java -Xms20M -Xmx20M -XX:+UseParallelGC -XX:+HeapDumpOnOutOfMemoryError com.mashibing.jvm.gc.T15_FullGC_Problem01
 
