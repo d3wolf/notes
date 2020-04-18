@@ -16,6 +16,8 @@
     * [锁](java/concurrent/lock.md)
     * [线程池](java/concurrent/线程池.md)
     * [AQS](java/concurrent/aqs.md)
+    * [JMH](java/concurrent/JMH.md)
+    * [Disruptor](java/concurrent/Disruptor.md)
   * [JVM]()
     * [1-JVM入门级class文件格式](java/jvm/01_ClassFileFormat.md)
     * [2-详解Class加载过程](java/jvm/02_ClassLodingLinkingInitializing.md)
