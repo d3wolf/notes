@@ -1,11 +1,14 @@
 ## 3：类加载-初始化
 
 1. 加载过程
+
+ ![](../../images/classLoading.jpg)
+
    1. Loading
       
       1. 双亲委派，主要出于安全来考虑
       
-      2. LazyLoading 五种情况
+      2. LazyLoading （严格来说应该叫lazy initialing）五种情况
       
          1. –new getstatic putstatic invokestatic指令，访问final变量除外
       
@@ -38,7 +41,9 @@
       
       5. 混合执行 编译执行 解释执行
       
-         1. 检测热点代码：-XX:CompileThreshold = 10000
+```
+检测热点代码：-XX:CompileThreshold = 10000
+``` 
       
    2. Linking 
       1. Verification
@@ -57,3 +62,16 @@
 
    1. load - 默认值 - 初始值
    2. new - 申请内存 - 默认值 - 初始值
+
+
+### class loader
+
+父加载器不是继承关系，父加载器不是类加载器的加载器
+
+![](../../images/classLoader.jpg)
+
+
+### 双亲委派模型
+
+![](../../images/load_process.jpg)
+
