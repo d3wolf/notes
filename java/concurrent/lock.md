@@ -21,6 +21,19 @@
 
 ## 请描述synchronized和reentrantlock的底层实现及重入的底层原理
 
+reentrantlock基于 cas和aqs来保证线程安全，synchronized通过锁来保证线程安全
+
+## synchronized和reentrantLock的异同
+
+```
+1 synchronized是关键字，reentrantlock是类，API层面的
+2 前者是通过monitor来实现锁机制，后者是基于AQS实现的，通过内部类sync继承aqs实现
+3 前者会自动释放锁，后者需要手动释放
+4 前者是非公平锁，后者可以是公平或非公平，默认非公平
+5 前者不可中断，后者可中断
+6 前者不能实现精准通知，后者可以通过condition实现精准通知
+```
+
 ## 请描述锁的四种状态和升级过程
 
 ![1](../../images/lock-1.png)
