@@ -19,6 +19,8 @@
 ## 对象头具体包括什么
 markword klasspointer synchronized锁信息 hashcode 分代年龄
 
+对象已经计算过hashcode，就无法进入偏向锁状态
+
 ![4](../../images/object-4.png)
 
 >轻量级锁和重量级锁时中间62位没有了，他们被保存在线程栈的Lock Record中了
@@ -78,6 +80,11 @@ TLAB: thread local allocation buffer
 对象在新生代最多存活多少次：PS,PO-15(因为对象头只有4bit存年龄信息)，CMS回收器：6
 
 ## Object o = new Object()在内存中占用多少字节
+
+class pointer占8字节，但是默认打开了UseCompressedClassPointers,所以占4字节
+
 指针在32位jdk中占用4字节，64位jdk是8字节，如果UseCompressedOops被打开了，则一个指针仍然是4个字节
+
+oops: ordinary object pointers
 
 根据对象在内存中的存储布局,一个对象由对象头(markword, class pointer)，对象实例数据，以及对齐填充（可能存在）三部分组成
