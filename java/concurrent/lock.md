@@ -8,6 +8,8 @@
 
 0x80中断
 
+![](../../images/用户态内核态.png)
+
 ## 为什么不能用String, Integer, Long等对象加锁
 
 为啥锁对象最好使final的，但是又不让string做锁

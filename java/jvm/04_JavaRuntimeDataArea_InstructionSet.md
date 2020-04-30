@@ -10,7 +10,13 @@ jvms 2.4 2.5
 
 ## Runtime Data Area
 
-PC 程序计数器
+![](../../images/jvm_runtime_data_areas.png)
+
+![](../../images/jvm_thread_share_area.png)
+
+### PC 程序计数器
+
+每个线程有自己的PC
 
 > 存放指令位置
 >
@@ -26,37 +32,63 @@ PC 程序计数器
 >
 > }
 
-JVM Stack
+### JVM Stack (VMS)
 
-1. Frame - 每个方法对应一个栈帧
-   1. Local Variable Table
-   2. Operand Stack
-      对于long的处理（store and load），多数虚拟机的实现都是原子的
-      jls 17.7，没必要加volatile
-   3. Dynamic Linking
-       https://blog.csdn.net/qq_41813060/article/details/88379473 
-      jvms 2.6.3
-   4. return address
-      a() -> b()，方法a调用了方法b, b方法的返回值放在什么地方
+1. 每个线程对应一个栈
 
-Heap
+2. stack装的是Frame - 每个方法对应一个栈帧
+   
+   * Local Variable Table 局部变量表
+   
+   * Operand Stack 操作数栈
+   
+        > 对于long的处理（store and load），多数虚拟机的实现都是原子的
+        > jls 17.7，没必要加volatile
 
-Method Area
+   * Dynamic Linking
+       
+        > https://blog.csdn.net/qq_41813060/article/details/88379473 
+      
+        > 具体看jvms 2.6.3
+        
+        > a() -> b()，方法a调用了方法b, b方法在哪里的连接
+      
+   * return address
+   
+        > a() -> b()，方法a调用了方法b, b方法的返回值放在什么地方
 
-1. Perm Space (<1.8)
+### Heap
+
+线程间共享
+
+### Method Area
+
+ 逻辑上的概念，所有线程共享，各种各样的class结构
+ 
+ 具体实现：
+
+* Perm Space (<1.8)
+
+```text
    字符串常量位于PermSpace
    FGC不会清理
    大小启动的时候指定，不能变
-2. Meta Space (>=1.8)
+```
+* Meta Space (>=1.8)
+
+```text
    字符串常量位于堆
    会触发FGC清理
    不设定的话，最大就是物理内存
+```
 
-Runtime Constant Pool
+### Runtime Constant Pool
 
-Native Method Stack
+常量池
 
-Direct Memory
+### Native Method Stack (NMS)
+
+### Direct Memory
 
 > JVM可以直接访问的内核空间的内存 (OS 管理的内存)
 >

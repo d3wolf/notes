@@ -24,11 +24,20 @@
 #### 2.如何定位垃圾
 
 1. 引用计数（ReferenceCount）
+
 2. 根可达算法(RootSearching)
+
+which instances are root?
+```text
+JVM stack
+native method stack
+run-time constant pool
+static references in method area, clazz
+```
 
 #### 3.常见的垃圾回收算法
 
-1. 标记清除(mark sweep) - 位置不连续 产生碎片 效率偏低（两遍扫描）
+1. 标记清除(mark sweep) - 位置不连续 产生碎片 效率偏低（两遍扫描：第一遍找出有用的，第二遍找垃圾），存活对象多时效率比较高
 2. 拷贝算法 (copying) - 没有碎片，浪费空间
 3. 标记压缩(mark compact) - 没有碎片，效率偏低（两遍扫描，指针需要调整）
 
@@ -68,40 +77,73 @@
    ![](../../images/对象分配过程详解.png)
 
 7. 动态年龄：（不重要）
+
    https://www.jianshu.com/p/989d3b06a49d
 
 8. 分配担保：（不重要）
+
    YGC期间 survivor区空间不够了 空间担保直接进入老年代
+   
    参考：https://cloud.tencent.com/developer/article/1082730
 
 #### 5.常见的垃圾回收器
 
 ![常用垃圾回收器](../../images/常用垃圾回收器.png)
 
-1. JDK诞生 Serial追随 提高效率，诞生了PS，为了配合CMS，诞生了PN，CMS是1.4版本后期引入，CMS是里程碑式的GC，它开启了并发回收的过程，但是CMS毛病较多，因此目前任何一个JDK版本默认是CMS
-   并发垃圾回收是因为无法忍受STW
-2. Serial 年轻代 串行回收
-3. PS 年轻代 并行回收
-4. ParNew 年轻代 配合CMS的并行回收
-5. SerialOld 
-6. ParallelOld
-7. ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms)
+* 历史
+
+```text
+JDK诞生 Serial追随 
+提高效率，诞生了PS
+为了配合CMS，诞生了PN
+CMS是1.4版本后期引入，CMS是里程碑式的GC，它开启了并发回收的过程，但是CMS毛病较多，因此目前没有任何一个JDK版本默认是CMS
+并发垃圾回收是因为无法忍受STW
+```
+
+1. Serial 年轻代 串行回收
+
+2. PS 年轻代 并行回收
+
+3. ParNew 年轻代 配合CMS的并行回收
+
+4. SerialOld 
+
+5. ParallelOld
+
+6. ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms)
+
    CMS问题比较多，所以现在没有一个版本默认是CMS，只能手工指定
+   
    CMS既然是MarkSweep，就一定会有碎片化的问题，碎片到达一定程度，CMS的老年代分配对象分配不下的时候，使用SerialOld 进行老年代回收
+   
    想象一下：
+   
    PS + PO -> 加内存 换垃圾回收器 -> PN + CMS + SerialOld（几个小时 - 几天的STW）
+  
    几十个G的内存，单线程回收 -> G1 + FGC 几十个G -> 上T内存的服务器 ZGC
+  
    算法：三色标记 + Incremental Update
-8. G1(10ms)
+   
+7. G1(10ms)
+
    算法：三色标记 + SATB
-9. ZGC (1ms) PK C++
+   
+8. ZGC (1ms) PK C++
+
    算法：ColoredPointers + LoadBarrier
-10. Shenandoah
+   
+9. Shenandoah
+
     算法：ColoredPointers + WriteBarrier
-11. Eplison
-12. PS 和 PN区别的延伸阅读：
+    
+10. Eplison
+
+
+* PS 和 PN区别的延伸阅读：
+
     ▪[https://docs.oracle.com/en/java/javase/13/gctuning/ergonomics.html#GUID-3D0BB91E-9BFF-4EBB-B523-14493A860E73](https://docs.oracle.com/en/java/javase/13/gctuning/ergonomics.html)
-13. 垃圾收集器跟内存大小的关系
+
+* 垃圾收集器跟内存大小的关系
     1. Serial 几十兆
     2. PS 上百兆 - 几个G
     3. CMS - 20G
@@ -285,15 +327,20 @@ total = eden + 1个survivor
    3. 咋办？
       PS -> PN + CMS 或者 G1
 2. 系统CPU经常100%，如何调优？(面试高频)
-   CPU100%那么一定有线程在占用系统资源，
-   1. 找出哪个进程cpu高（top）
-   2. 该进程中的哪个线程cpu高（top -Hp）
-   3. 导出该线程的堆栈 (jstack)
-   4. 查找哪个方法（栈帧）消耗时间 (jstack)
-   5. 工作线程占比高 | 垃圾回收线程占比高
+
+   CPU100%那么一定有线程在占用系统资源
+    ```text
+       1. 找出哪个进程cpu高（top）
+       2. 该进程中的哪个线程cpu高（top -Hp）
+       3. 导出该线程的堆栈 (jstack)
+       4. 查找哪个方法（栈帧）消耗时间 (jstack)
+       5. 工作线程占比高 | 垃圾回收线程占比高
+    ```
 3. 系统内存飙高，如何查找问题？（面试高频）
-   1. 导出堆内存 (jmap)
-   2. 分析 (jhat jvisualvm mat jprofiler ... )
+    ```text
+       1. 导出堆内存 (jmap)
+       2. 分析 (jhat jvisualvm mat jprofiler ... )
+    ```
 4. 如何监控JVM
    1. jstat jvisualvm jprofiler arthas top...
 
@@ -376,11 +423,16 @@ total = eden + 1个survivor
 5. top -Hp 观察进程中的线程，哪个线程CPU和内存占比高
 
 6. jps定位具体java进程
+
    jstack 定位线程状况，重点关注：WAITING BLOCKED
-   eg.
-   waiting on <0x0000000088ca3310> (a java.lang.Object)
-   假如有一个进程中100个线程，很多线程都在waiting on <xx> ，一定要找到是哪个线程持有这把锁
-   怎么找？搜索jstack dump的信息，找<xx> ，看哪个线程持有这把锁RUNNABLE
+   ```text
+       eg.
+       waiting on <0x0000000088ca3310> (a java.lang.Object)
+    ```
+   假如有一个进程中100个线程，很多线程都在waiting on `<xx>` ，一定要找到是哪个线程持有这把锁
+   
+   怎么找？搜索jstack dump的信息，找`<xx>` ，看哪个线程持有这把锁RUNNABLE
+   
    作业：1：写一个死锁程序，用jstack观察 2 ：写一个程序，一个线程持有锁不释放，其他线程等待
 
 7. 为什么阿里规范里规定，线程的名称（尤其是线程池）都要写有意义的名称
@@ -388,27 +440,48 @@ total = eden + 1个survivor
 
 8. jinfo pid 
 
-9. jstat -gc 动态观察gc情况 / 阅读GC日志发现频繁GC / arthas观察 / jconsole/jvisualVM/ Jprofiler（最好用）
+    > 列出JVM信息
+
+9. jstat -gc 
+
+    动态观察gc情况 / 阅读GC日志发现频繁GC / 
+    
+    arthas观察 / jconsole/jvisualVM/ Jprofiler（最好用）
+   
    jstat -gc 4655 500 : 每个500个毫秒打印GC的情况
+   
    如果面试官问你是怎么定位OOM问题的？如果你回答用图形界面（错误）
+   
    1：已经上线的系统不用图形界面用什么？（cmdline arthas）
+   
    2：图形界面到底用在什么地方？测试！测试的时候进行监控！（压测观察）
 
-10. jmap - histo 4655 | head -20，查找有多少对象产生
+10. jmap - histo 4655 | head -20，查找有多少对象产生，可用来在线定位
 
-11. jmap -dump:format=b,file=xxx pid ：
+    ```text
+        jmap - histo 4655 | head -20
+    ```
+
+11. jmap -dump:format=b,file=xxx pid 
 
     线上系统，内存特别大，jmap执行期间会对进程产生很大影响，甚至卡顿（电商不适合）
-    1：设定了参数HeapDump，OOM的时候会自动产生堆转储文件
+    
+    1：设定了参数`-XX:+HeapDumpOnOutOfMemoryError`，OOM的时候会自动产生堆转储文件
+    
     2：<font color='red'>很多服务器备份（高可用），停掉这台服务器对其他服务器不影响</font>
+    
     3：在线定位(一般小点儿公司用不到)
 
 12. java -Xms20M -Xmx20M -XX:+UseParallelGC -XX:+HeapDumpOnOutOfMemoryError com.mashibing.jvm.gc.T15_FullGC_Problem01
 
 13. 使用MAT / jhat /jvisualvm 进行dump文件分析
+
      https://www.cnblogs.com/baihuitestsoftware/articles/6406271.html 
-jhat -J-mx512M xxx.dump
+     
+    `jhat -J-mx512M xxx.dump`
+    
     http://192.168.17.11:7000
+    
     拉到最后：找到对应链接
     可以使用OQL查找特定问题对象
     
@@ -447,25 +520,38 @@ jhat -J-mx512M xxx.dump
 #### arthas在线排查工具
 
 * 为什么需要在线排查？
-   在生产上我们经常会碰到一些不好排查的问题，例如线程安全问题，用最简单的threaddump或者heapdump不好查到问题原因。为了排查这些问题，有时我们会临时加一些日志，比如在一些关键的函数里打印出入参，然后重新打包发布，如果打了日志还是没找到问题，继续加日志，重新打包发布。对于上线流程复杂而且审核比较严的公司，从改代码到上线需要层层的流转，会大大影响问题排查的进度。 
-* jvm观察jvm信息
-* thread定位线程问题
+   
+   > 在生产上我们经常会碰到一些不好排查的问题，例如线程安全问题，用最简单的threaddump或者heapdump不好查到问题原因。为了排查这些问题，有时我们会临时加一些日志，比如在一些关键的函数里打印出入参，然后重新打包发布，如果打了日志还是没找到问题，继续加日志，重新打包发布。对于上线流程复杂而且审核比较严的公司，从改代码到上线需要层层的流转，会大大影响问题排查的进度。 
+
+* jvm 观察jvm信息
+
+* thread 定位线程问题
+
 * dashboard 观察系统情况
+
 * heapdump + jhat分析
+
 * jad反编译
+```text
    动态代理生成类的问题定位
    第三方的类（观察代码）
    版本问题（确定自己最新提交的版本是不是被使用）
+```
 * redefine 热替换
+```text
    目前有些限制条件：只能改方法实现（方法已经运行完成），不能改方法名， 不能改属性
    m() -> mm()
+```
 * sc  - search class
+
 * watch  - watch method
+
 * 没有包含的功能：jmap
 
 ### GC算法的基础概念
 
 * Card Table
+
   由于做YGC时，需要扫描整个OLD区，效率非常低，所以JVM设计了CardTable， 如果一个OLD区CardTable中有对象指向Y区，就将它设为Dirty，下次扫描时，只需要扫描Dirty Card
   在结构上，Card Table用BitMap来实现
 
@@ -596,9 +682,11 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
 1. 硬件升级系统反而卡顿的问题（见上）
 
 2. 线程池不当运用产生OOM问题（见上）
+
    不断的往List里加对象（实在太LOW）
 
 3. smile jira问题
+
    实际系统不断重启
    解决问题 加内存 + 更换垃圾回收器 G1
    真正问题在哪儿？不知道
@@ -606,6 +694,7 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
 4. tomcat http-header-size过大问题（Hector）
 
 5. lambda表达式导致方法区溢出问题(MethodArea / Perm Metaspace)
+
    LambdaGC.java     -XX:MaxMetaspaceSize=9M -XX:+PrintGCDetails
 
    ```java
@@ -654,9 +743,11 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
    ```
 
 6. 直接内存溢出问题（少见）
+
    《深入理解Java虚拟机》P59，使用Unsafe分配直接内存，或者使用NIO的问题
 
 7. 栈溢出问题
+
    -Xss设定太小
 
 8. 比较一下这两段程序的异同，分析哪一个是更优的写法：
@@ -680,7 +771,8 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
 为什么C++程序员会重写finalize？（new delete）
    finalize耗时比较长（200ms）
    
-10. 如果有一个系统，内存一直消耗不超过10%，但是观察GC日志，发现FGC总是频繁产生，会是什么引起的？
+10. 如果有一个系统，堆内存一直消耗不超过10%，但是观察GC日志，发现FGC总是频繁产生，会是什么引起的？
+
     System.gc() (这个比较Low)
 
 11. Distuptor有个可以设置链的长度，如果过大，然后对象大，消费完不主动释放，会溢出 (来自 死物风情)
