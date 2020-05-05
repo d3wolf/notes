@@ -38,7 +38,7 @@ chkconfig ipvsadm on
 
 ```text
 虚拟ip ： 192.168.14.200，默认指向Master(192.168.14.8)
-真实服务器1 ： Master，192.168.14.8， 该机器上同时运行Apache Httpd服务(端口80)用作sorry_server且通常不提供服务；
+真实服务器1 ： Master，192.168.14.8， 该机器上同时运行Apache Httpd服务(端口80)提供服务；
 真实服务器2 ： Backup，192.168.14.14， 该机器上同时运行Apache Httpd服务(端口80)用作sorry_server且通常不提供服务；
 真实服务器3 ： web01 ，192.168.14.202， 该机器上运行Apache Httpd服务(端口80)用作后端server且通常提供服务；
 真实服务器4 ： web02 ，192.168.14.203， 该机器上运行Apache Httpd服务(端口80)用作后端server且通常提供服务；
