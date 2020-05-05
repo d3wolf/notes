@@ -101,9 +101,12 @@ appendfsync no #不调用flush，buffer满了就往磁盘刷，可能会丢失�
 ### 5. AOF和RDB混合使用
 
 /etc/redis/6379.conf
+
 ```text
 aof-use-rdb-preamble yes
 ```
+
+一个操作示例：
 
 ```text
 set k1 xxx
