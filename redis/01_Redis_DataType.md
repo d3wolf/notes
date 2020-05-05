@@ -33,6 +33,7 @@ incr
 ```
 
 * 场景：
+
 ```text
 抢购，秒杀，详情页，点赞，评论
 规避并发下，
@@ -80,6 +81,7 @@ setbit 20190102   7  1
 bitop  or   destkey 20190101  20190102
 BITCOUNT  destkey  0 -1 
 ```
+
 
 ### 2. List
 
@@ -134,7 +136,7 @@ SRANDMEMBER  key  count
 如果：0，不返回
 ```
 
-### 5. sorted_set(zset)
+### 5. Sorted Set(zset)
 
 * 特性
 
