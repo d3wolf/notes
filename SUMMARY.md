@@ -34,7 +34,7 @@
     * [监控工具使用](java/jvm/jstack.md)
   * [Redis]()
     * [1-Redis数据类型](redis/01_Redis_DataType.md)
-    * [2-Redis消息订阅、pipeline、事务、modules、布隆过滤器、缓存LRU](redis/01_Redis_DataType.md)
+    * [2-Redis消息订阅、pipeline、事务、modules、布隆过滤器、缓存LRU](redis/02_Redis_misc.md)
     * [3-Redis持久化RDB](redis/03_Redis_RDB.md)
     * [4-Redis持久化AOF](redis/04_Redis_AOF.md)
 * [DevOps]()
