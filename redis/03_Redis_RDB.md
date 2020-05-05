@@ -79,8 +79,9 @@ linux中 export的环境变量，子进程的修改不会破坏父进程，父�
 
 #### 3.实现方式
 
-* 人为触发的命令
-```bash
+* 人为触发的命令：
+
+```text
 1. save  #仍然是阻塞的，redis不对外提供服务，比如关机维护时。
 2. bgsave #fork 创建子进程
 ```
@@ -88,6 +89,7 @@ linux中 export的环境变量，子进程的修改不会破坏父进程，父�
 * 配置文件中编写bgsave规则，用的是save标识，触发的是bgsave
 
 /etc/redis/6379.conf,找到 SNAPSHOTTING
+
 ```text
 save <seconds> <changes> 
 save 900 1
