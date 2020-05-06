@@ -11,6 +11,8 @@
 
 ### 通过AKF 一变多
 
+AKF:通过加机器可以解决容量和可用性问题（如果一台不行就两台）
+
 ```text
 X：全量，镜像： 解决单点故障
 Y：业务，功能拆分： 
@@ -136,14 +138,19 @@ hash tag
 
 ![](../images/redis_cluster.png)
 
+## 小结
 
-## 代理
+Redis Sentinel着眼于高可用，在master宕机时会自动将slave提升为master，继续提供服务。
+
+Redis Cluster着眼于扩展性，在单个redis内存不足时，使用Cluster进行分片存储。
+
+## Redis 集群方案应该怎么做？都有哪些方案？
 
 twemproxy
 
 predixy
 
-cluster
+redis cluster3.0 自带的集群
 
 codis
 
