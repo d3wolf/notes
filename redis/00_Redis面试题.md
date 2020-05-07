@@ -1,10 +1,17 @@
 ## 1.Redis 是一个基于内存的高性能key-value数据库。
 
+worker单线程，io threads
+
+K,V - 类型(5)
+
+本地方法：计算向数据移动，IO优化（比如memcache只支持string，没有本地方法，所以需要把V全部返回到客户端）
 
 ## 2.Redis相比memcached有哪些优势：
 
 memcached所有的值均是简单的字符串，redis作为其替代者，支持更为丰富的数据类型
+
 redis的速度比memcached快很多
+
 redis可以持久化其数据
 
 ## 3.Redis是单线程
