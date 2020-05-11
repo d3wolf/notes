@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    "chapter-fold",
+    "back-to-top-button",
+    "code",
+    "splitter",
+    "popup"
+  ]
+}
