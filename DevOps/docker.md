@@ -139,6 +139,20 @@ docker run --volumes-from webapps --name t1 -d tomcat # 共享容器挂载点
 
 ```
 
+## 删除container和image
+
+> 现在的docker有了专门清理资源(container、image、网络)的命令。 docker 1.13 中增加了 docker system prune的命令，针对container、image可以使用docker container prune、docker image prune命令。
+
+* 删除所有不使用的镜像
+
+docker image prune --force --all
+
+或者docker image prune -f -a
+
+* 删除所有停止的容器
+
+docker container prune -f
+
 ## Docker Compose 容器编排工具
 
 * 单机多容器部署工具
