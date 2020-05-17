@@ -29,6 +29,8 @@ swaps：显示swap的次数 show profile swaps for query n
 
 ### performance schema
 
+参见[MYSQL performance schema详解](01-1_MYSQL%20performance%20schema详解.md)
+
 ```sql
 show databases;
 use performance_schema;
