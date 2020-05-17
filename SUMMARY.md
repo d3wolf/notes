@@ -36,7 +36,7 @@
 * [MySQL调优]()
   * [MySQL面试题](mysql/面试.md)
   * [使用profiles,performance_schema性能监控](mysql/01_使用profiles,performance_schema性能监控.md)
-    * [performance schema详解](mysql/01-1_MYSQL%20performance%20schema详解.md)
+  * [performance schema详解](mysql/01-1_MYSQL%20performance%20schema详解.md)
   * [数据类型和schema优化](mysql/02_数据类型和schema优化.md)
 * [Kafka](kafka/README.md)
   * [概念](kafka/concept.md)
