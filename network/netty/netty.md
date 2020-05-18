@@ -21,10 +21,10 @@ Netty和Tomcat最大的区别就在于通信协议，Tomcat是基于Http协议�
 Netty是一款基于NIO（Nonblocking I/O，非阻塞IO）开发的网络通信框架，对比于BIO（Blocking I/O，阻塞IO），他的并发性能得到了很大提高，两张图让你了解BIO和NIO的区别：
 
 * 阻塞IO的通信方式
-![阻塞IO的通信方式](../images/netty-1.png) 
+![阻塞IO的通信方式](../../images/netty-1.png) 
 
 * 非阻塞IO的通信方式
-![非阻塞IO的通信方式](../images/netty-2.png) 
+![非阻塞IO的通信方式](../../images/netty-2.png) 
 
 从这两图可以看出，NIO的单线程能处理连接的数量比BIO要高出很多，而为什么单线程能处理更多的连接呢？原因就是图二中出现的Selector。
 
@@ -37,15 +37,15 @@ Netty是一款基于NIO（Nonblocking I/O，非阻塞IO）开发的网络通信�
 下面两张图是基于BIO的处理流程和netty的处理流程
 
 * BIO的处理流程
-![3](../images/netty-3.png)
+![3](../../images/netty-3.png)
 
 * NIO的处理流程
-![4](../images/netty-4.png)
+![4](../../images/netty-4.png)
 
 ##五种IO模型
 
 除了BIO和NIO之外，还有一些其他的IO模型，下面这张图就表示了五种IO模型的处理流程：
-![5](../images/netty-5.png)
+![5](../../images/netty-5.png)
 * BIO，同步阻塞IO，阻塞整个步骤，如果连接少，他的延迟是最低的，因为一个线程只处理一个连接，适用于少连接且延迟低的场景，比如说数据库连接。
 * NIO，同步非阻塞IO，阻塞业务处理但不阻塞数据接收，适用于高并发且处理简单的场景，比如聊天软件。
 * 多路复用IO，他的两个步骤处理是分开的，也就是说，一个连接可能他的数据接收是线程a完成的，数据处理是线程b完成的，他比BIO能处理更多请求。
@@ -59,11 +59,11 @@ Netty的传输快其实也是依赖了NIO的一个特性——零拷贝。
 
 >我们知道，Java的内存有堆内存、栈内存和字符串常量池等等，其中堆内存是占用内存空间最大的一块，也是Java对象存放的地方，一般我们的数据如果需要从IO读取到堆内存，中间需要经过Socket缓冲区，也就是说一个数据会被拷贝两次才能到达他的的终点，如果数据量大，就会造成不必要的资源浪费。
 
-![6](../images/netty-6.png)
+![6](../../images/netty-6.png)
 
 >Netty针对这种情况，使用了NIO中的另一大特性——零拷贝，当他需要接收数据的时候，他会在堆内存之外开辟一块内存，数据就直接从IO读到了那块内存中去，在netty里面通过ByteBuf可以直接对这些数据进行直接操作，从而加快了传输速度。
  
-![7](../images/netty-7.png)
+![7](../../images/netty-7.png)
 
 ##为什么说Netty封装好
 
@@ -209,7 +209,7 @@ public class NettyOioServer {
 
 数据传输流，与channel相关的概念有以下四个
 
-![8](../images/netty-8.png)
+![8](../../images/netty-8.png)
 
     Channel，表示一个连接，可以理解为每一个请求，就是一个Channel。
     ChannelHandler，核心处理业务就在这里，用于处理业务请求。
@@ -220,7 +220,7 @@ public class NettyOioServer {
 
 ByteBuf是一个存储字节的容器，最大特点就是使用方便，它既有自己的读索引和写索引，方便你对整段字节缓存进行读写，也支持get/set，方便你对其中每一个字节进行读写，他的数据结构如下图所示：
 
-![9](../images/netty-9.png)
+![9](../../images/netty-9.png)
 
 他有三种使用模式：
 
@@ -249,7 +249,7 @@ Netty中的编码/解码器，通过他你能完成字节与pojo、pojo与pojo�
 
 ## Netty && Reactor模型
 
-![netty&reactor](../images/netty&&reactor.jpg)
+![netty&reactor](../../images/netty&&reactor.jpg)
 
 
 ## Reactor和epoll模型的区别

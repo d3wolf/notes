@@ -18,7 +18,7 @@
     * [监控工具使用](java/jvm/jstack.md)
 * [网络]()
   * [TCP](network/tcp.md)
-  * [Netty](network/netty.md)
+  * [Netty](network/netty/netty.md)
   * [集群内高并发]()
     * [CAP](network/集群内高并发/00_CAP.md)
     * [网络协议原理,LVS的NAT,DR,TUN模型推导](network/集群内高并发/01_网络协议原理.md)

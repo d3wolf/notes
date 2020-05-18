@@ -119,9 +119,13 @@ docker exec -it 3b0d0288303f /bin/bash
 
 ## 外部ssh连接
 
-在使用ssh工具连接docker容器的时候，使用的ip地址不是docker容器的地址，也不能使用localhost、127.0.0.1，需要使用 docker-mechine IP default命令获取到虚拟Linux的IP地址，通过这个地址使用 ssh -p 10022 root@192.168.100.0（此地址是通过命令获取到的IP），然后才能登录
+在使用ssh工具连接docker容器的时候，使用的ip地址不是docker容器的地址，也不能使用localhost、127.0.0.1，
 
-ssh -p 10022 root@192.168.100.0
+需要使用 `docker-machine ip default`命令获取到虚拟Linux的IP地址，
+
+通过这个地址使用 ssh -p 10022 root@192.168.100.0（此地址是通过命令获取到的IP），然后才能登录
+
+ssh -p 10022 root@192.168.65.0
 
 
 ## 挂载
