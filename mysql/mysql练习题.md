@@ -1,6 +1,6 @@
 # mysql练习题
 
-### 1、表结构
+## 1、表结构
 
 ```
 –1.学生表 
@@ -13,7 +13,7 @@ Teacher(t_id,t_name) –教师编号,教师姓名
 Score(s_id,c_id,s_score) –学生编号,课程编号,分数
 ```
 
-### 2、测试数据
+## 2、测试数据
 
 ```sql
 --建表
@@ -83,23 +83,49 @@ insert into Score values('07' , '02' , 89);
 insert into Score values('07' , '03' , 98);
 ```
 
-### 3、测试题
+## 3、测试题
+
+### 1、查询"01"课程比"02"课程成绩高的学生的信息及课程分数  
 
 ```sql
--- 1、查询"01"课程比"02"课程成绩高的学生的信息及课程分数  
-select a.* ,b.s_score as 01_score,c.s_score as 02_score from 
-    student a 
-    join score b on a.s_id=b.s_id and b.c_id='01'
-    left join score c on a.s_id=c.s_id and c.c_id='02' or c.c_id = NULL where b.s_score>c.s_score
--- 2、查询"01"课程比"02"课程成绩低的学生的信息及课程分数 
-select a.* ,b.s_score as 01_score,c.s_score as 02_score from 
-    student a left join score b on a.s_id=b.s_id and b.c_id='01' or b.c_id=NULL 
-     join score c on a.s_id=c.s_id and c.c_id='02' where b.s_score<c.s_score
--- 3、查询平均成绩大于等于60分的同学的学生编号和学生姓名和平均成绩
-select b.s_id,b.s_name,ROUND(AVG(a.s_score),2) as avg_score from 
-    student b 
-    join score a on b.s_id = a.s_id
-    GROUP BY b.s_id,b.s_name HAVING ROUND(AVG(a.s_score),2)>=60; 
+select student.*,score1.s_score as score1, score2.s_score as score2
+from Student student
+       inner join Score score1
+                  on student.s_id = score1.s_id and score1.c_id = "01"
+       left join Score score2
+                 on student.s_id = score2.s_id and score2.c_id = "02" or score2.c_id = NULL
+where score1.s_score > score2.s_score;
+```
+
+### 2、查询"01"课程比"02"课程成绩低的学生的信息及课程分数 
+
+```sql
+select student.*,score1.s_score as score1, score2.s_score as score2
+from Student student
+       inner join Score score2
+                  on student.s_id = score2.s_id and score2.c_id = "02"
+       left join Score score1
+                 on student.s_id = score1.s_id and score1.c_id = "01" or score1.c_id = NULL
+where score2.s_score > score1.s_score;
+```
+
+### 3、查询平均成绩大于等于60分的同学的学生编号和学生姓名和平均成绩
+
+```sql
+select student.s_id, student.s_name, SUM(score.s_score) / 3 avg_score
+from Score score
+       join Student student on student.s_id = score.s_id
+group by score.s_id HAVING SUM(score.s_score) / 3 >=60;
+
+
+select b.s_id,b.s_name,ROUND(AVG(a.s_score),2) as avg_score from
+  Student b
+    join Score a on b.s_id = a.s_id
+GROUP BY b.s_id,b.s_name HAVING ROUND(AVG(a.s_score),2)>=60;
+```
+
+```sql
+
 -- 4、查询平均成绩小于60分的同学的学生编号和学生姓名和平均成绩
         -- (包括有成绩的和无成绩的) 
 select b.s_id,b.s_name,ROUND(AVG(a.s_score),2) as avg_score from 
