@@ -12,16 +12,15 @@ B+树
 
 其他用innodb
 
-mysql三层
+## mysql基本架构图
+
 client
+
 server server端的连接器-》分析器-》优化器-》执行器
+
 存储引擎
 
 ![](../images/mysql结构.png)
-
-mysql执行计划
-
-
 
 
 ## 索引分几类：
