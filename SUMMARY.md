@@ -35,7 +35,7 @@
   * [6-Redis开发](redis/06_Redis开发.md)
 * [MySQL调优]()
   * [MySQL面试题](mysql/面试.md)
-  * [MySQ练习题](mysql/mysql练习题.md)
+  * [MySQL练习题](mysql/mysql练习题.md)
   * [1-使用profiles,performance_schema性能监控](mysql/01_使用profiles,performance_schema性能监控.md)
   * [2-performance schema详解](mysql/02_performance_schema详解.md)
   * [3-数据类型和schema优化](mysql/03_MySQL数据类型和schema优化.md)
