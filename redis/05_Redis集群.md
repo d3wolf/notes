@@ -21,6 +21,14 @@ Z：优先级，逻辑再拆分：
 
 ![](../images/redis_akf.png)
 
+![](../images/akf.jpg)
+
+mycat分布分表的概念是：
+
+分库：一张表table， shard到两个db中，db1.table存一部分、db2.table存另一部分。
+
+分表：一张表table， shard到一个db中，db1.table_1存一部分、db1.table_2存另一部分。
+
 
 ### AKF一致性处理
 
