@@ -1,6 +1,8 @@
-## C10K
+## 系统中断
 
-## C10M
+0x80中断
+
+![](../images/int_0x80_example.png)
 
 
 
