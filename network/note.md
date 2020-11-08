@@ -113,5 +113,7 @@ ETCD_INITIAL_CLUSTER_STATE="new"
 #ETCD_PEER_CERT_FILE=""
 ```
 
+```text
 systemctl restart etcd
 etcdctl member list
+```
