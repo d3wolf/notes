@@ -52,3 +52,4 @@ nohup.out
 /.vscode/
 
 /.ipynb_checkpoints/
+/test.json

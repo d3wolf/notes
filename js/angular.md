@@ -29,12 +29,19 @@
 ## Observables和Promises的核心区别是什么？
 
 1. Observable类似于（在许多语言中的）Stream，当每个事件调用回调函数时，允许传递零个或多个事件。
+
 通常Observable比Promise更受欢迎，因为它不但提供了Promise特性，还提供了其它特性。
+
 使用Observable可以处理0,1或多个事件。
+
 你可以在每种情况下使用相同的API。
+
 Observable是可取消的，这相比于Promise也具有优势。
+
 如果服务器的HTTP请求结果或其它一些异步操作不再需要，则Observable的订阅者可以取消订阅，
+
 而Promise将最终调用成功或失败的回调，即使你不需要通知或其提供的结果。
+
 Observable提供像map，forEach，reduce之类的类似于数组的运算符，还有强大的运算符，如retry（）或replay（）等，使用起来是相当方便的
 
 2. Promises：
