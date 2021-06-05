@@ -1,6 +1,6 @@
 # meta标签分两大部分：HTTP-EQUIV和NAME变量。
 
-## ●HTTP-EQUIV类似于HTTP的头部协议
+## HTTP-EQUIV类似于HTTP的头部协议
 
 它回应给浏览器一些有用的信息，以帮助正确和精确地显示网页内容。常用的HTTP-EQUIV类型有：
 
