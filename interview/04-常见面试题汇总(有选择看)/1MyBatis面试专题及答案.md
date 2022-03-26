@@ -2,17 +2,17 @@
 
 答：MyBatis 是一个可以自定义 SQL、存储过程和高级映射的持久层框架。 
 
-## 2、讲下 MyBatis 的缓存答
+## 2、讲下 MyBatis 的缓存
 
-：MyBatis 的缓存分为一级缓存和二级缓存,一级缓存放在 session 里面,默认就有,二级缓存放在它的命名空间里,默认是不打开的,使用二级缓存属性类需要实现 Serializable 序列化接口(可用来保存对象的状态),可在它的映射文件中配置<cache/> 
-
- 
-
-## 3、Mybatis 是如何进行分页的？分页插件的原理是什么？答： 
+答：MyBatis 的缓存分为一级缓存和二级缓存,一级缓存放在 session 里面,默认就有,二级缓存放在它的命名空间里,默认是不打开的,使用二级缓存属性类需要实现 Serializable 序列化接口(可用来保存对象的状态),可在它的映射文件中配置<cache/> 
 
  
 
-1）Mybatis 使用 RowBounds 对象进行分页，也可以直接编写 sql 实现分页，也可以使用
+## 3、Mybatis 是如何进行分页的？分页插件的原理是什么？
+
+答： 
+
+ 1）Mybatis 使用 RowBounds 对象进行分页，也可以直接编写 sql 实现分页，也可以使用
 
 Mybatis 的分页插件。 
 
@@ -26,15 +26,11 @@ Mybatis 的分页插件。
 
  
 
-## 4、简述 Mybatis 的插件运行原理，以及如何编写一个插件？答： 
+## 4、简述 Mybatis 的插件运行原理，以及如何编写一个插件？
 
- 
+答： 
 
-1）Mybatis 仅可以编写针对 ParameterHandler、ResultSetHandler、StatementHandler、
-
-Executor 这 4 种接口的插件，Mybatis 通过动态代理，为需要拦截的接口生成代理对象以实现接口方法拦截功能，每当执行这 4 种接口对象的方法时，就会进入拦截方法，具体就是
-
-InvocationHandler 的 invoke()方法，当然，只会拦截那些你指定需要拦截的方法。 
+1）Mybatis 仅可以编写针对 ParameterHandler、ResultSetHandler、StatementHandler、Executor 这 4 种接口的插件，Mybatis 通过动态代理，为需要拦截的接口生成代理对象以实现接口方法拦截功能，每当执行这 4 种接口对象的方法时，就会进入拦截方法，具体就是InvocationHandler 的 invoke()方法，当然，只会拦截那些你指定需要拦截的方法。 
 
  
 
@@ -42,35 +38,29 @@ InvocationHandler 的 invoke()方法，当然，只会拦截那些你指定需�
 
  
 
-## 5、Mybatis 动态 sql 是做什么的？都有哪些动态 sql？能简述一下动态 sql 的执行原理不？答： 
+## 5、Mybatis 动态 sql 是做什么的？都有哪些动态 sql？能简述一下动态 sql 的执行原理不？
 
- 
+答： 
 
 1）Mybatis 动态 sql 可以让我们在 Xml 映射文件内，以标签的形式编写动态 sql，完成逻辑判断和动态拼接 sql 的功能。 
-
- 
 
 2）Mybatis 提供了 9 种动态 sql 标签：
 
 trim|where|set|foreach|if|choose|when|otherwise|bind。 
 
- 
-
 3）其执行原理为，使用 OGNL 从 sql 参数对象中计算表达式的值，根据表达式的值动态拼接 sql，以此来完成动态 sql 的功能。 
 
  
 
-## 6、#{}和${}的区别是什么？答： 1）#{}是预编译处理，${}是字符串替换。 
+## 6、#{}和${}的区别是什么？
 
- 
+答： 
+
+1）#{}是预编译处理，${}是字符串替换。 
 
 2）Mybatis 在处理#{}时，会将 sql 中的#{}替换为?号，调用 PreparedStatement 的 set 方法来赋值； 
 
- 
-
 3）Mybatis 在处理${}时，就是把${}替换成变量的值。 
-
- 
 
 4）使用#{}可以有效的防止 SQL 注入，提高系统安全性。 
 
@@ -78,65 +68,54 @@ trim|where|set|foreach|if|choose|when|otherwise|bind。
 
 ## 7、为什么说 Mybatis 是半自动 ORM 映射工具？它与全自动的区别在哪里？ 
 
-答：Hibernate 属于全自动 ORM 映射工具，使用 Hibernate 查询关联对象或者关联集合对象时，可以根据对象关系模型直接获取，所以它是全自动的。而 Mybatis 在查询关联对象或关联集合对象时，需要手动编写 sql 来完成，所以，称之为半自动 ORM 映射工具。 
+答：
 
-## 8、Mybatis 是否支持延迟加载？如果支持，它的实现原理是什么？答： 
+Hibernate 属于全自动 ORM 映射工具，使用 Hibernate 查询关联对象或者关联集合对象时，可以根据对象关系模型直接获取，所以它是全自动的。
 
- 
+而 Mybatis 在查询关联对象或关联集合对象时，需要手动编写 sql 来完成，所以，称之为半自动 ORM 映射工具。 
+
+## 8、Mybatis 是否支持延迟加载？如果支持，它的实现原理是什么？
+
+答： 
 
 1）  Mybatis 仅支持 association 关联对象和 collection 关联集合对象的延迟加载，association 指的就是一对一，collection 指的就是一对多查询。在 Mybatis 配置文件中，可以配置是否启用延迟加载 lazyLoadingEnabled=true|false。 
 
- 
-
 2）  它的原理是，使用 CGLIB 创建目标对象的代理对象，当调用目标方法时，进入拦截器方法，比如调用 a.getB().getName()，拦截器 invoke()方法发现 a.getB()是 null 值，那么就会单独发送事先保存好的查询关联 B 对象的 sql，把 B 查询上来，然后调用 a.setB(b)，于是 a 的对象 b 属性就有值了，接着完成 a.getB().getName()方法的调用。这就是延迟加载的基本原理。 
 
- 
 
-## 9、MyBatis 与 Hibernate 有哪些不同？答： 
+## 9、MyBatis 与 Hibernate 有哪些不同？
 
- 
+答： 
 
 1）  Mybatis 和 hibernate 不同，它不完全是一个 ORM 框架，因为 MyBatis 需要程序员自己编写 Sql 语句，不过 mybatis 可以通过 XML 或注解方式灵活配置要运行的 sql 语句，并将 java 对象和 sql 语句映射生成最终执行的 sql，最后将 sql 执行的结果再映射生成 java 对象。 
 
- 
-
 2）  Mybatis 学习门槛低，简单易学，程序员直接编写原生态 sql，可严格控制 sql 执行性能，灵活度高，非常适合对关系数据模型要求不高的软件开发，例如互联网软件、企业运营类软件等，因为这类软件需求变化频繁，一但需求变化要求成果输出迅速。但是灵活的前提是 mybatis 无法做到数据库无关性，如果需要实现支持多种数据库的软件则需要自定义多套 sql 映射文件，工作量大。 
 
- 
+3）  Hibernate 对象/关系映射能力强，数据库无关性好，对于关系模型要求高的软件（例如需求固定的定制化软件）如果用 hibernate 开发可以节省很多代码，提高效率。
+但是Hibernate 的缺点是学习门槛高，要精通门槛更高，而且怎么设计 O/R 映射，在性能和对象模型之间如何权衡，以及怎样用好 Hibernate 需要具有很强的经验和能力才行。 
 
-3）  Hibernate 对象/关系映射能力强，数据库无关性好，对于关系模型要求高的软件（例如需求固定的定制化软件）如果用 hibernate 开发可以节省很多代码，提高效率。但是
-
-Hibernate 的缺点是学习门槛高，要精通门槛更高，而且怎么设计 O/R 映射，在性能和对象模型之间如何权衡，以及怎样用好 Hibernate 需要具有很强的经验和能力才行。 
-
- 
 
 总之，按照用户的需求在有限的资源环境下只要能做出维护性、扩展性良好的软件架构都是好架构，所以框架只有适合才是最好。 
 
  
 
-## 10、MyBatis 的好处是什么？答： 
+## 10、MyBatis 的好处是什么？
 
- 
+答： 
 
 1）  MyBatis 把 sql 语句从 Java 源程序中独立出来，放在单独的 XML 文件中编写，给程序的维护带来了很大便利。 
 
- 
-
 2）  MyBatis 封装了底层 JDBC API 的调用细节，并能自动将结果集转换成 Java Bean 对象，大大简化了 Java 数据库编程的重复工作。 
-
- 
 
 3）  因为 MyBatis 需要程序员自己去编写 sql 语句，程序员可以结合数据库自身的特点灵活控制 sql 语句，因此能够实现比 Hibernate 等全自动 orm 框架更高的查询效率，能够完成复杂查询。 
 
- 
 
 ## 11、简述 Mybatis 的 Xml 映射文件和 Mybatis 内部数据结构之间的映射关系？ 
 
-答：Mybatis 将所有 Xml 配置信息都封装到 All-In-One 重量级对象 Configuration 内部。在
+答：Mybatis 将所有 Xml 配置信息都封装到 All-In-One 重量级对象 Configuration 内部。
+在Xml 映射文件中，<parameterMap>标签会被解析为 ParameterMap 对象，其每个子元素会被解析为 ParameterMapping 对象。
 
-Xml 映射文件中，<parameterMap>标签会被解析为 ParameterMap 对象，其每个子元素会被解析为 ParameterMapping 对象。<resultMap>标签会被解析为 ResultMap 对象，其每个子
-
-元素会被解析为 ResultMapping 对象。每一个<select>、<insert>、<update>、<delete>标签均会被解析为 MappedStatement 对象，标签内的 sql 会被解析为 BoundSql 对象。 
+<resultMap>标签会被解析为 ResultMap 对象，其每个子元素会被解析为 ResultMapping 对象。每一个<select>、<insert>、<update>、<delete>标签均会被解析为 MappedStatement 对象，标签内的 sql 会被解析为 BoundSql 对象。 
 
 ## 12、什么是 MyBatis 的接口绑定,有什么好处？
 
@@ -160,8 +139,6 @@ Xml 映射文件中，<parameterMap>标签会被解析为 ParameterMap 对象，
 
 答：能，Mybatis 不仅可以执行一对一、一对多的关联查询，还可以执行多对一，多对多的关联查询，多对一查询，其实就是一对一查询，只需要把 selectOne()修改为 selectList()即可；多对多查询，其实就是一对多查询，只需要把 selectOne()修改为 selectList()即可。 
 
- 
-
 关联对象查询，有两种实现方式，一种是单独发送一个 sql 去查询关联对象，赋给主对象，然后返回主对象。另一种是使用嵌套查询，嵌套查询的含义为使用 join 查询，一部分列是 A 对象的属性值，另外一部分列是关联对象 B 的属性值，好处是只发一个 sql 查询，就可以把主对象和其关联对象查出来。 
 
  
@@ -170,17 +147,15 @@ Xml 映射文件中，<parameterMap>标签会被解析为 ParameterMap 对象，
 
 答：MyBatis 里面的动态 Sql 一般是通过 if 节点来实现,通过 OGNL 语法来实现,但是如果要写的完整,必须配合 where,trim 节点,where 节点是判断包含节点有内容就插入 where,否则不插入,trim 节点是用来判断如果动态语句是以 and 或 or 开始,那么会自动把这个 and 或者 or 取掉。 
 
-## 18、Mybatis 是如何将 sql 执行结果封装为目标对象并返回的？都有哪些映射形式？答： 
+## 18、Mybatis 是如何将 sql 执行结果封装为目标对象并返回的？都有哪些映射形式？
 
- 
+答： 
 
 第一种是使用<resultMap>标签，逐一定义列名和对象属性名之间的映射关系。 
 
- 
 
 第二种是使用 sql 列的别名功能，将列别名书写为对象属性名，比如 T_NAME AS NAME，对象属性名一般是 name，小写，但是列名不区分大小写，Mybatis 会忽略列名大小写，智能找到与之对应对象属性名，你甚至可以写成 T_NAME AS NaMe，Mybatis 一样可以正常工作。 
 
- 
 
 有了列名与属性名的映射关系后，Mybatis 通过反射创建对象，同时使用反射给对象的属性逐一赋值并返回，那些找不到映射关系的属性，是无法完成赋值的。 
 
@@ -194,25 +169,23 @@ Xml 映射文件中，<parameterMap>标签会被解析为 ParameterMap 对象，
 
 trim|where|set|foreach|if|choose|when|otherwise|bind 等，其中<sql>为 sql 片段标签，通过<include>标签引入 sql 片段，<selectKey>为不支持自增的主键生成策略标签。 
 
-## 20、当实体类中的属性名和表中的字段名不一样，如果将查询的结果封装到指定 pojo？答： 
+## 20、当实体类中的属性名和表中的字段名不一样，如果将查询的结果封装到指定 pojo？
+
+答： 
 
  
-
 1）通过在查询的 sql 语句中定义字段名的别名。 
 
  
-
 2）通过<resultMap>来映射字段名和实体类属性名的一一对应的关系。 
 
  
 
-## 21、模糊查询 like 语句该怎么写答： 
+## 21、模糊查询 like 语句该怎么写
 
- 
+答： 
 
-1）在 java 中拼接通配符，通过#{}赋值 
-
- 
+1）在 java 中拼接通配符，通过#{}赋值  
 
 2）在 Sql 语句中拼接通配符 （不安全 会引起 Sql 注入） 
 
@@ -258,86 +231,60 @@ DefaultSqlSessionFactory 的创建 SqlSession 的方法传递 ExecutorType 类�
 
 答：配置文件设置 usegeneratedkeys 为 true 
 
-## 31、在 mapper 中如何传递多个参数？答： 
+## 31、在 mapper 中如何传递多个参数？
 
- 
+答： 
 
 1）直接在方法中传递参数，xml 文件用#{0} #{1}来获取 
 
- 
-
 2）使用 @param 注解:这样可以直接在 xml 文件中通过#{name}来获取 
 
- 
 
 ## 32、resultType resultMap 的区别？ 
 
 答： 
 
- 
-
 1）类的名字和数据库相同时，可以直接设置 resultType 参数为 Pojo 类 
-
- 
 
 2）若不同，需要设置 resultMap 将结果名字和 Pojo 名字进行转换 
 
- 
 
-## 33、使用 MyBatis 的 mapper 接口调用时有哪些要求？答： 
+## 33、使用 MyBatis 的 mapper 接口调用时有哪些要求？
 
- 
+答： 
 
 1）Mapper 接口方法名和 mapper.xml 中定义的每个 sql 的 id 相同 
 
- 
-
 2）Mapper 接口方法的输入参数类型和 mapper.xml 中定义的每个 sql 的 parameterType 的类型相同 
 
- 
-
 3）Mapper 接口方法的输出参数类型和 mapper.xml 中定义的每个 sql 的 resultType 的类型相同 
-
- 
 
 4）Mapper.xml 文件中的 namespace 即是 mapper 接口的类路径。 
 
  
+## 34、Mybatis 比 IBatis 比较大的几个改进是什么？
 
-## 34、Mybatis 比 IBatis 比较大的几个改进是什么？答： 
-
- 
+答： 
 
 1）有接口绑定,包括注解绑定 sql 和 xml 绑定 Sql  
 
- 
-
-2）动态 sql 由原来的节点配置变成 OGNL 表达式 3）    在一对一,一对多的时候引进了
-
-association,在一对多的时候引入了 collection 节点,不过都是在 resultMap 里面配置 
+2）动态 sql 由原来的节点配置变成 OGNL 表达式 3）    在一对一,一对多的时候引进了association,在一对多的时候引入了 collection 节点,不过都是在 resultMap 里面配置 
 
  
 
-## 35、      IBatis 和 MyBatis 在核心处理类分别叫什么？
+## 35、IBatis 和 MyBatis 在核心处理类分别叫什么？
 
 答：IBatis 里面的核心处理类交 SqlMapClient,MyBatis 里面的核心处理类叫做 SqlSession。 
 
  
+## 36、IBatis 和 MyBatis 在细节上的不同有哪些？
 
-## 36、      IBatis 和 MyBatis 在细节上的不同有哪些？答： 
-
- 
+答： 
 
 1）在 sql 里面变量命名有原来的#变量# 变成了#{变量} 
 
- 
-
 2）原来的$变量$变成了${变量} 
 
- 
-
 3）原来在 sql 节点里面的 class 都换名字交 type 
-
- 
 
 4）原来的 queryForObject queryForList 变成了 selectOne selectList5）原来的别名设置在映射文件里面放在了核心配置文件里

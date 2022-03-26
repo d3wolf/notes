@@ -24,9 +24,7 @@ Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便
 
 ## 优缺点
 
-微服务的框架那么多比如：dubbo、Kubernetes，为什么就要使用Spring 
-
-Cloud的呢？
+微服务的框架那么多比如：dubbo、Kubernetes，为什么就要使用SpringCloud的呢？
 
 优点：
 
@@ -41,9 +39,9 @@ Cloud的呢？
 
 # Spring Cloud发展前景
 
-Spring Cloud对于中小型互联网公司来说是一种福音，因为这类公司往往没有实力或者没有足够的资金投入去开发自己的分布式系统基础设施，使用Spring 
+Spring Cloud对于中小型互联网公司来说是一种福音，因为这类公司往往没有实力或者没有足够的资金投入去开发自己的分布式系统基础设施，使用Spring Cloud一站式解决方案能在从容应对业务发展的同时大大减少开发成本。
 
-Cloud一站式解决方案能在从容应对业务发展的同时大大减少开发成本。同时，随着近几年微服务架构和Docker容器概念的火爆，也会让Spring Cloud在未来越来越“云”化的软件开发风格中立有一席之地，尤其是在五花八门的分布式解决方案中提供了标准化的、全站式的技术方案，意义可能会堪比当年Servlet规范的诞生，有效推进服务端软件系统技术水平的进步。
+同时，随着近几年微服务架构和Docker容器概念的火爆，也会让Spring Cloud在未来越来越“云”化的软件开发风格中立有一席之地，尤其是在五花八门的分布式解决方案中提供了标准化的、全站式的技术方案，意义可能会堪比当年Servlet规范的诞生，有效推进服务端软件系统技术水平的进步。
 
 # 整体架构
 
@@ -51,9 +49,9 @@ Cloud一站式解决方案能在从容应对业务发展的同时大大减少开
 
 # 主要项目
 
-Spring Cloud的子项目，大致可分成两类，一类是对现有成熟框架"Spring 
+Spring Cloud的子项目，大致可分成两类，一类是对现有成熟框架"Spring Boot化"的封装和抽象，也是数量最多的项目；
 
-Boot化"的封装和抽象，也是数量最多的项目；第二类是开发了一部分分布式系统的基础设施的实现，如Spring Cloud Stream扮演的就是kafka, ActiveMQ这样的角色。
+第二类是开发了一部分分布式系统的基础设施的实现，如Spring Cloud Stream扮演的就是kafka, ActiveMQ这样的角色。
 
 ## Spring Cloud Config
 
@@ -115,9 +113,7 @@ Spring Cloud是一个由许多子项目组成的综合项目，各子项目有�
 
 这些版本的名字采用了伦敦地铁站的名字，根据字母表的顺序来对应版本时间顺序，例如Angel是第一个版本，Brixton是第二个版本。 当Spring Cloud的发布
 
-内容积累到临界点或者一个重大BUG被解决后，会发布一个"service 
-
-releases"版本，简称SRX版本，比如Greenwich.SR2就是Spring Cloud发布的 Greenwich版本的第2个SRX版本。目前Spring Cloud的最新版本是Hoxton。
+内容积累到临界点或者一个重大BUG被解决后，会发布一个"service releases"版本，简称SRX版本，比如Greenwich.SR2就是Spring Cloud发布的 Greenwich版本的第2个SRX版本。目前Spring Cloud的最新版本是Hoxton。
 
 ## Spring Cloud和SpringBoot版本对应关系
 
@@ -177,13 +173,13 @@ SpringBoot专注于快速、方便的开发单个微服务个体，SpringCloud�
 
 当我们开始一个项目时，我们通常在属性文件中进行所有的配置。随着越来越多的服务开发和部署，添加和修改这些属性变得更加复杂。有些服务可能会下降，而某些位置可能会发生变化。手动更改属性可能会产生问题。 Eureka 服务注册和发现可以在这种情况下提供帮助。由于所有服务都在 Eureka 服务器上注册并通过调用 Eureka 服务器完成查找，因此无需处理服务地点的任何更改和处理。
 
-Spring Cloud 和dubbo区别?
+# Spring Cloud 和dubbo区别?
 
-（1）服务调用方式 dubbo是RPC springcloud Rest Api （2）注册中心,dubbo 是zookeeper springcloud是eureka，也可以是 zookeeper
+（1）服务调用方式 dubbo是RPC springcloud Rest Api 
 
-（3）服务网关,dubbo本身没有实现，只能通过其他第三方技术整合， springcloud有Zuul路由网关，作为路由服务器，进行消费者的请求分
+（2）注册中心,dubbo 是zookeeper springcloud是eureka，也可以是 zookeeper
 
-发,springcloud支持断路器，与git完美集成配置文件支持版本控制，事物总线实现配置文件的更新与服务自动装配等等一系列的微服务架构要素。
+（3）服务网关,dubbo本身没有实现，只能通过其他第三方技术整合， springcloud有Zuul路由网关，作为路由服务器，进行消费者的请求分发,springcloud支持断路器，与git完美集成配置文件支持版本控制，事物总线实现配置文件的更新与服务自动装配等等一系列的微服务架构要素。
 
 # 负载平衡的意义什么？
 
@@ -205,17 +201,13 @@ Hystrix 是一个延迟和容错库，旨在隔离远程系统，服务和第三
 
 随着微服务数量的增加，这个问题变得更加复杂。微服务的数量可以高达 1000.
 
-这是 hystrix 出现的地方 我们将使用 Hystrix 在这种情况下的 Fallback 方法功
-
-能。我们有两个服务 employee-consumer 使用由 employee-consumer 公开的服务。
+这是 hystrix 出现的地方 我们将使用 Hystrix 在这种情况下的 Fallback 方法功能。我们有两个服务 employee-consumer 使用由 employee-consumer 公开的服务。
 
 简化图如下所示
 
 ![简化](18-Spring Cloud面试题（2020最新版）.assets/简化.jpg)
 
-现在假设由于某种原因，employee-producer 公开的服务会抛出异常。我们在这种情况下使用 Hystrix 定义了一个回退方法。这种后备方法应该具有与公开服
-
-务相同的返回类型。如果暴露服务中出现异常，则回退方法将返回一些值。
+现在假设由于某种原因，employee-producer 公开的服务会抛出异常。我们在这种情况下使用 Hystrix 定义了一个回退方法。这种后备方法应该具有与公开服务相同的返回类型。如果暴露服务中出现异常，则回退方法将返回一些值。
 
 # 什么是 Hystrix 断路器？我们需要它吗？
 
@@ -223,9 +215,7 @@ Hystrix 是一个延迟和容错库，旨在隔离远程系统，服务和第三
 
 ![Hystrix断路器](18-Spring Cloud面试题（2020最新版）.assets/Hystrix断路器.jpg)
 
-如果 firstPage method() 中的异常继续发生，则 Hystrix 电路将中断，并且员
-
-工使用者将一起跳过 firtsPage 方法，并直接调用回退方法。 断路器的目的是给第一页方法或第一页方法可能调用的其他方法留出时间，并导致异常恢复。可能发生的情况是，在负载较小的情况下，导致异常的问题有更好的恢复机会 。
+如果 firstPage method() 中的异常继续发生，则 Hystrix 电路将中断，并且员工使用者将一起跳过 firtsPage 方法，并直接调用回退方法。 断路器的目的是给第一页方法或第一页方法可能调用的其他方法留出时间，并导致异常恢复。可能发生的情况是，在负载较小的情况下，导致异常的问题有更好的恢复机会 。
 
 ## 什么是 Netflix Feign？它的优点是什么？
 
@@ -235,7 +225,9 @@ Feign 的第一个目标是将约束分母的复杂性统一到 http apis，而�
 
 在 employee-consumer 的例子中，我们使用了 employee-producer 使用 REST模板公开的 REST 服务。
 
-但是我们必须编写大量代码才能执行以下步骤（1）使用功能区进行负载平衡。
+但是我们必须编写大量代码才能执行以下步骤
+
+（1）使用功能区进行负载平衡。
 
 （2）  获取服务实例，然后获取基本 URL。
 
@@ -277,23 +269,23 @@ Spring Cloud Config 从 GIT 读取这些属性。
 
 ![获取Eureka注册财产](18-Spring Cloud面试题（2020最新版）.assets/获取Eureka注册财产.jpg)
 
-如果假设 GIT 中的 Eureka 注册属性更改(img)为指向另一台 Eureka 服务器，会发生什么情况。在这种情况下，我们将不得不重新启动服务以获取更新的属性。还有另一种使用执行器端点/刷新的方式。但是我们将不得不为每个模块单独调
-
-用这个 url。例如，如果 Employee Producer1 部署在端口 8080 上，则调用 http：// localhost：8080 / refresh。同样对于 Employee Producer2 
+如果假设 GIT 中的 Eureka 注册属性更改(img)为指向另一台 Eureka 服务器，会发生什么情况。在这种情况下，我们将不得不重新启动服务以获取更新的属性。还有另一种使用执行器端点/刷新的方式。但是我们将不得不为每个模块单独调用这个 url。例如，如果 Employee Producer1 部署在端口 8080 上，则调用 http：// localhost：8080 / refresh。同样对于 Employee Producer2 
 
 http：//localhost：8081 / refresh 等等。这又很麻烦。这就是 Spring Cloud Bus 发挥作用的地方。
 
 ![Spring_Bus](18-Spring Cloud面试题（2020最新版）.assets/Spring_Bus.jpg)
 
-Spring Cloud Bus 提供了跨多个实例刷新配置的功能。因此，在上面的示例中，如果我们刷新 Employee Producer1，则会自动刷新所有其他必需的模
-
-块。如果我们有多个微服务启动并运行，这特别有用。这是通过将所有微服务连接到单个消息代理来实现的。无论何时刷新实例，此事件都会订阅到侦听此代理的所有微服务，并且它们也会刷新。可以通过使用端点/总线/刷新来实现对任何单个实例的刷新。
+Spring Cloud Bus 提供了跨多个实例刷新配置的功能。因此，在上面的示例中，如果我们刷新 Employee Producer1，则会自动刷新所有其他必需的模块。如果我们有多个微服务启动并运行，这特别有用。这是通过将所有微服务连接到单个消息代理来实现的。无论何时刷新实例，此事件都会订阅到侦听此代理的所有微服务，并且它们也会刷新。可以通过使用端点/总线/刷新来实现对任何单个实例的刷新。
 
 # Spring Cloud断路器的作用
 
-当一个服务调用另一个服务由于网络原因或自身原因出现问题，调用者就会等待被调用者的响应 当更多的服务请求到这些资源导致更多的请求等待，发生连锁效应（雪崩效应）断路器有完全打开状态:一段时间内 达到一定的次数无法调用 并且多次监测没有恢复的迹象 断路器完全打开 那么下次请求就不会请求到该服务半开:短时间内 有恢复迹象 断路器会将部分请求发给该服务，正常调用时 断路器关闭
+当一个服务调用另一个服务由于网络原因或自身原因出现问题，调用者就会等待被调用者的响应 当更多的服务请求到这些资源导致更多的请求等待，发生连锁效应（雪崩效应）
 
-关闭：当服务一直处于正常状态 能正常调用
+断路器有完全打开状态:一段时间内达到一定的次数无法调用,并且多次监测没有恢复的迹象,断路器完全打开,那么下次请求就不会请求到该服务
+
+半开:短时间内有恢复迹象,断路器会将部分请求发给该服务，正常调用时断路器关闭
+
+关闭：当服务一直处于正常状态,能正常调用
 
 ## 什么是Spring Cloud Config?
 
@@ -311,6 +303,4 @@ Spring Cloud Bus 提供了跨多个实例刷新配置的功能。因此，在上
 
 Spring Cloud Gateway是Spring Cloud官方推出的第二代网关框架，取代Zuul 网关。网关作为流量的，在微服务系统中有着非常作用，网关常见的功能有路由转发、权限校验、限流控制等作用。
 
-使用了一个RouteLocatorBuilder的bean去创建路由，除了创建路由
-
-RouteLocatorBuilder可以让你添加各种predicates和filters，predicates断言的意思，顾名思义就是根据具体的请求的规则，由具体的route去处理，filters 是各种过滤器，用来对请求做各种判断和修改。
+使用了一个RouteLocatorBuilder的bean去创建路由，除了创建路由RouteLocatorBuilder可以让你添加各种predicates和filters，predicates断言的意思，顾名思义就是根据具体的请求的规则，由具体的route去处理，filters 是各种过滤器，用来对请求做各种判断和修改。
